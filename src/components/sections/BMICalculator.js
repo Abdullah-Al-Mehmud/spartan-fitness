@@ -84,7 +84,7 @@ export default function BMICalculator() {
       case "Normal Weight":
         return "text-emerald-500 bg-emerald-500/10 border-emerald-500/20";
       case "Overweight":
-        return "text-orange-500 bg-orange-500/10 border-orange-500/20";
+        return "text-amber-500 bg-amber-500/10 border-amber-500/20";
       case "Obese":
         return "text-red-500 bg-red-500/10 border-red-500/20";
       default:
@@ -273,7 +273,7 @@ export default function BMICalculator() {
                   <div className="relative w-full h-3.5 bg-white/10 rounded-full overflow-hidden flex">
                     <div className="w-[17.5%] h-full bg-yellow-500/60" /> {/* Underweight */}
                     <div className="w-[32.5%] h-full bg-emerald-500/60" /> {/* Normal */}
-                    <div className="w-[25%] h-full bg-orange-500/60" /> {/* Overweight */}
+                    <div className="w-[25%] h-full bg-amber-500/60" /> {/* Overweight */}
                     <div className="w-[25%] h-full bg-red-500/60" /> {/* Obese */}
                     
                     {/* Floating indicator pin */}
@@ -320,7 +320,7 @@ export default function BMICalculator() {
                     <span>Healthy Range:</span> <span className="font-semibold text-emerald-500">18.5 - 24.9</span>
                   </div>
                   <div className="flex justify-between border-b border-white/5 pb-1">
-                    <span>Overweight:</span> <span className="font-semibold text-orange-500">25.0 - 29.9</span>
+                    <span>Overweight:</span> <span className="font-semibold text-amber-500">25.0 - 29.9</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Obese:</span> <span className="font-semibold text-red-500">30.0 or Higher</span>

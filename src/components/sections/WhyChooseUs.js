@@ -99,7 +99,7 @@ export default function WhyChooseUs() {
                 className="bg-white rounded-3xl p-8 border border-dark/5 shadow-xl shadow-dark/[0.01] flex flex-col justify-between group transition-all duration-300"
               >
                 <div>
-                  {/* Icon wrap with orange accent circle */}
+                  {/* Icon wrap with red accent circle */}
                   <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary transition-all duration-300">
                     <Icon size={20} className="text-primary group-hover:text-white transition-all duration-300" />
                   </div>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Dumbbell, Users, Target, Shield, Heart, Award, ArrowUpRight } from "lucide-react";
+import { Dumbbell, Users, Target, Award, ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -29,23 +29,7 @@ const tabs = [
   },
 ];
 
-const values = [
-  {
-    icon: Shield,
-    title: "Premium Experience",
-    desc: "Luxury environment with state-of-the-art strength training and cardio machinery curated for optimal stimulus.",
-  },
-  {
-    icon: Users,
-    title: "Certified Coaches",
-    desc: "Every coach holds verified training credentials and is dedicated to customized workout tracking and injury prevention.",
-  },
-  {
-    icon: Heart,
-    title: "Surgical Hygiene",
-    desc: "We prioritize a pristine, sanitised environment with continuous housekeeping so you can train with complete peace of mind.",
-  },
-];
+
 
 const timelineEvents = [
   { year: "2016", title: "Mirpur-7 Branch Founded", desc: "Started as a strength training gym on Milk Vita Road, sectional center Section-7." },
@@ -146,24 +130,7 @@ export default function About() {
         }
       );
 
-      // Core Values Stagger Reveal (Fade Up, Scale, Blur Removal)
-      gsap.fromTo(
-        ".value-card",
-        { opacity: 0, y: 40, scale: 0.95, filter: "blur(4px)" },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          filter: "blur(0px)",
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".value-card",
-            start: "top 85%",
-          },
-        }
-      );
+
 
       // Journey Timeline - Draw vertical line
       gsap.fromTo(
@@ -223,7 +190,7 @@ export default function About() {
         />
 
         {/* Row 1: Collage + Story with Tabs */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-20">
           
           {/* Left: Interactive Collage */}
           <div className="lg:col-span-6 relative h-[450px] sm:h-[500px] w-full">
@@ -345,39 +312,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Core Values Section */}
-        <div className="pt-20 border-t border-dark/5">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h4 className="font-heading text-2xl uppercase tracking-wider text-dark mb-3">
-              Our Core Values
-            </h4>
-            <p className="font-body text-xs sm:text-sm text-muted leading-relaxed">
-              The foundation of Spartan Fitness. We are built on core pillars of luxury environments, certified expertise, and absolute cleanliness.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-20">
-            {values.map((val, idx) => {
-              const ValIcon = val.icon;
-              return (
-                <div
-                  key={idx}
-                  className="value-card bg-white rounded-3xl p-8 border border-dark/5 shadow-xl shadow-dark/[0.01] flex flex-col items-center text-center group hover:border-primary/20 hover:-translate-y-2 hover:shadow-primary/10 transition-all duration-300"
-                >
-                  <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:rotate-12 transition-all duration-300">
-                    <ValIcon size={20} className="text-primary group-hover:text-white transition-all duration-300" />
-                  </div>
-                  <h5 className="font-heading text-lg uppercase tracking-wider text-dark mb-3">
-                    {val.title}
-                  </h5>
-                  <p className="font-body text-xs sm:text-sm text-muted leading-relaxed">
-                    {val.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
 
         {/* Timeline Section */}
         <div className="pt-20 border-t border-dark/5">

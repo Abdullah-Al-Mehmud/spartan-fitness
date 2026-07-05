@@ -106,7 +106,7 @@ export default function GymIntroLoader() {
 
   return (
     <div className="intro-preloader fixed inset-0 z-[9999] bg-dark flex flex-col items-center justify-center overflow-hidden select-none pointer-events-none">
-      {/* Orange soft glow in center */}
+      {/* Red soft glow in center */}
       <div className="intro-preloader-glow absolute w-96 h-96 rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
 
       {/* Barbell/Dumbbell SVG illustration */}

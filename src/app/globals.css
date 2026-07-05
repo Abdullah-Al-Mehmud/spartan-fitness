@@ -4,9 +4,9 @@
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
 
-  --color-primary: #FF5500;
-  --color-primary-dark: #CC4400;
-  --color-primary-light: #FF7733;
+  --color-primary: #DC2626;
+  --color-primary-dark: #B91C1C;
+  --color-primary-light: #FEE2E2;
   --color-offwhite: #F9F9FA;
   --color-surface: #FFFFFF;
   --color-dark: #0B0B0C;
@@ -52,12 +52,12 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF5500;
+  background: #B91C1C;
 }
 
 /* Selection highlight */
 ::selection {
-  background: #FF5500;
+  background: #DC2626;
   color: #FFFFFF;
 }
 
