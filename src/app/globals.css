@@ -73,3 +73,214 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
+
+/* ═══════════════════════════════════════════════════
+   HERO SECTION STYLES
+   ═══════════════════════════════════════════════════ */
+
+/* Red Blurry Glow - Top */
+.hero-glow-top {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  height: 50vh;
+  background: radial-gradient(ellipse at center, rgba(220, 38, 38, 0.25) 0%, rgba(220, 38, 38, 0.08) 40%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Red Blurry Glow - Bottom */
+.hero-glow-bottom {
+  position: absolute;
+  bottom: -25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70vw;
+  height: 45vh;
+  background: radial-gradient(ellipse at center, rgba(220, 38, 38, 0.2) 0%, rgba(220, 38, 38, 0.06) 40%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ghost Text (Behind Model) */
+.hero-ghost-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  pointer-events: none;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.85;
+  white-space: nowrap;
+}
+
+.hero-ghost-line {
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(6rem, 16vw, 20rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
+  opacity: 0.6;
+}
+
+/* Center Model Container */
+.hero-model-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(300px, 35vw, 550px);
+  height: 85vh;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hero-model-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-model-image img {
+  object-fit: cover;
+  object-position: top center;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 80%, transparent 100%);
+}
+
+/* Hero CTA Buttons */
+.hero-btn-primary {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body), sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 14px 32px;
+  border-radius: 6px;
+  background: #DC2626;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
+}
+
+.hero-btn-primary:hover {
+  background: #B91C1C;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(220, 38, 38, 0.35);
+}
+
+.hero-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body), sans-serif;
+  font-weight: 500;
+  font-size: 0.8rem;
+  padding: 14px 24px;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-btn-outline:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Glassmorphic Cards */
+.hero-glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px 24px;
+  width: 100%;
+  max-width: 320px;
+  transition: all 0.4s ease;
+}
+
+.hero-glass-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(220, 38, 38, 0.2);
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.1);
+  transform: translateY(-4px);
+}
+
+.hero-glass-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(220, 38, 38, 0.12);
+  border: 1px solid rgba(220, 38, 38, 0.15);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE OVERRIDES
+   ═══════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .hero-model-container {
+    width: clamp(250px, 45vw, 400px);
+    height: 70vh;
+    z-index: 5;
+    opacity: 0.35;
+  }
+
+  .hero-ghost-line {
+    font-size: clamp(4rem, 14vw, 10rem);
+  }
+
+  .hero-glass-card {
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-model-container {
+    width: 70vw;
+    height: 60vh;
+    opacity: 0.25;
+  }
+
+  .hero-ghost-line {
+    font-size: clamp(3rem, 18vw, 7rem);
+  }
+
+  .hero-glass-card {
+    max-width: 100%;
+  }
+
+  .hero-glow-top {
+    width: 100vw;
+    height: 40vh;
+  }
+
+  .hero-glow-bottom {
+    width: 100vw;
+    height: 35vh;
+  }
+}

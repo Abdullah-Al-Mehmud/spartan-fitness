@@ -3,15 +3,12 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import Button from "@/components/ui/Button";
 
 const navLinks = [
   { label: "Home", href: "#hero", id: "hero" },
-  { label: "About", href: "#about", id: "about" },
   { label: "Services", href: "#programs", id: "programs" },
-  { label: "Trainers", href: "#trainers", id: "trainers" },
-  { label: "Pricing", href: "#pricing", id: "pricing" },
-  { label: "Blog", href: "#blog", id: "blog" },
+  { label: "About", href: "#about", id: "about" },
+  { label: "Results", href: "#trainers", id: "trainers" },
   { label: "Contact", href: "#contact", id: "contact" },
 ];
 
@@ -67,18 +64,23 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-dark/90 backdrop-blur-md border-b border-white/5 py-4 shadow-2xl text-white"
-            : "bg-transparent border-b border-transparent py-6 text-dark"
+            ? "bg-[#0A0A0A]/90 backdrop-blur-xl border-b border-white/5 py-3 shadow-2xl"
+            : "bg-transparent border-b border-transparent py-5"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between">
+            {/* Logo */}
             <a
               href="#hero"
-              className="font-heading text-2xl md:text-3xl tracking-tighter uppercase focus:outline-none flex items-center gap-1 group"
+              className="font-heading text-2xl md:text-3xl tracking-tighter uppercase text-white focus:outline-none flex items-center gap-0.5 group"
             >
-              <span className="text-primary font-bold transition-transform duration-300 group-hover:scale-110">S</span>
-              <span className="transition-transform duration-300 group-hover:translate-x-0.5">partan</span>
+              <span className="text-primary font-bold transition-transform duration-300 group-hover:scale-110">
+                SPARTAN
+              </span>
+              <span className="text-white/60 text-lg md:text-xl ml-1 font-body font-light tracking-wider">
+                FITNESS
+              </span>
             </a>
 
             {/* Desktop Navigation */}
@@ -93,23 +95,19 @@ export default function Navbar() {
                       e.preventDefault();
                       handleNav(link.href);
                     }}
-                    className={`font-body text-xs font-bold uppercase tracking-wider transition-all duration-300 relative py-2 ${
-                      scrolled
-                        ? isActive
-                          ? "text-primary"
-                          : "text-white/70 hover:text-white"
-                        : isActive
-                        ? "text-primary"
-                        : "text-dark/70 hover:text-dark"
+                    className={`font-body text-[11px] font-medium uppercase tracking-[0.2em] transition-all duration-300 relative py-2 ${
+                      isActive
+                        ? "text-white"
+                        : "text-white/40 hover:text-white/80"
                     }`}
                   >
                     {link.label}
-                    
-                    {/* Sliding active line */}
+
+                    {/* Active dot indicator */}
                     {isActive && (
                       <motion.span
-                        layoutId="activeNavUnderline"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+                        layoutId="activeNavDot"
+                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary"
                         transition={{ type: "spring", stiffness: 350, damping: 30 }}
                       />
                     )}
@@ -120,20 +118,17 @@ export default function Navbar() {
 
             {/* CTA Button */}
             <div className="hidden lg:block">
-              <Button
-                variant="primary"
+              <button
                 onClick={() => handleNav("#contact")}
-                className="shadow-lg hover:shadow-primary/20 transition-all duration-300"
+                className="font-body text-[11px] font-semibold uppercase tracking-wider px-6 py-2.5 rounded-md bg-primary text-white hover:bg-primary-dark transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
               >
-                Join Now
-              </Button>
+                Book Now
+              </button>
             </div>
 
-            {/* Mobile Hamburger Icon morphing */}
+            {/* Mobile Hamburger */}
             <button
-              className={`lg:hidden focus:outline-none transition-colors duration-300 ${
-                scrolled ? "text-white hover:text-primary" : "text-dark hover:text-primary"
-              }`}
+              className="lg:hidden text-white hover:text-primary focus:outline-none transition-colors duration-300"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
@@ -150,13 +145,14 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-dark/95 backdrop-blur-xl lg:hidden flex flex-col justify-between p-6"
+            className="fixed inset-0 z-50 bg-[#0A0A0A]/98 backdrop-blur-xl lg:hidden flex flex-col justify-between p-6"
           >
             <div>
               {/* Header */}
               <div className="flex items-center justify-between h-16">
                 <span className="font-heading text-3xl tracking-tighter uppercase text-white">
-                  <span className="text-primary">S</span>partan
+                  <span className="text-primary">SPARTAN</span>
+                  <span className="text-white/60 text-lg ml-1 font-body font-light">FITNESS</span>
                 </span>
                 <button
                   onClick={() => setMobileOpen(false)}
@@ -195,14 +191,14 @@ export default function Navbar() {
 
             {/* Bottom Button */}
             <div className="mb-12 flex flex-col items-center">
-              <Button
-                className="w-full max-w-xs shadow-xl"
+              <button
+                className="w-full max-w-xs bg-primary text-white font-body font-semibold py-3.5 rounded-md hover:bg-primary-dark transition-all duration-300"
                 onClick={() => handleNav("#contact")}
               >
-                Join Now
-              </Button>
-              <p className="font-body text-xs text-white/40 mt-6 uppercase tracking-widest">
-                Stronger Every Day • Healthier for Life
+                Book Now
+              </button>
+              <p className="font-body text-xs text-white/30 mt-6 uppercase tracking-widest">
+                Forge Your Best Self
               </p>
             </div>
           </motion.div>
