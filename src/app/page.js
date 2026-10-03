@@ -1,6 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import About from "@/components/sections/About";
-import Hero from "@/components/sections/Hero";
+// import Hero from "@/components/sections/Hero"; // legacy hero, replaced by HeroSection
+import HeroSection from "@/components/sections/HeroSection";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 // import PersonalTraining from "@/components/sections/PersonalTraining"; // Redundant with Programs & Coaches
 import Transformations from "@/components/sections/Transformations";
@@ -22,7 +23,7 @@ export default function Home() {
       <Navbar />
       <main>
         {/* 1. Hero & Value Proposition */}
-        <Hero />
+        <HeroSection />
 
         {/* 2. Brand Story & Culture */}
         <About />
