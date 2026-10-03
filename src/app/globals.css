@@ -1,17 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&family=Bebas+Neue&family=Geist:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 
 @theme inline {
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
 
-  --color-primary: #DC2626;
-  --color-primary-dark: #B91C1C;
-  --color-primary-light: #FEE2E2;
-  --color-offwhite: #F9F9FA;
-  --color-surface: #FFFFFF;
-  --color-dark: #0B0B0C;
-  --color-dark-light: #1A1A1C;
-  --color-muted: #7E7E86;
+  --color-primary: #dc2626;
+  --color-primary-dark: #b91c1c;
+  --color-primary-light: #fee2e2;
+  --color-offwhite: #f9f9fa;
+  --color-surface: #ffffff;
+  --color-dark: #0b0b0c;
+  --color-dark-light: #1a1a1c;
+  --color-muted: #7e7e86;
 
   --animate-fade-up: fade-up 0.6s ease-out forwards;
   --animate-fade-in: fade-in 0.6s ease-out forwards;
@@ -43,22 +44,22 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B0B0C;
+  background: #0b0b0c;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2A2A2E;
+  background: #2a2a2e;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B91C1C;
+  background: #b91c1c;
 }
 
 /* Selection highlight */
 ::selection {
-  background: #DC2626;
-  color: #FFFFFF;
+  background: #dc2626;
+  color: #ffffff;
 }
 
 /* Smooth custom styles */
@@ -78,69 +79,108 @@
    HERO SECTION STYLES
    ═══════════════════════════════════════════════════ */
 
-/* Red Blurry Glow - Top */
+/* Red Blurry Glow - Top — wide ellipse, only corners stay dark */
 .hero-glow-top {
   position: absolute;
-  top: -20%;
+  top: -18%;
   left: 50%;
   transform: translateX(-50%);
-  width: 80vw;
-  height: 50vh;
-  background: radial-gradient(ellipse at center, rgba(220, 38, 38, 0.25) 0%, rgba(220, 38, 38, 0.08) 40%, transparent 70%);
-  filter: blur(80px);
+  width: 122vw;
+  height: 88vh;
+  background: radial-gradient(
+    ellipse at 50% 33%,
+    rgba(220, 38, 38, 0.74) 0%,
+    rgba(185, 28, 28, 0.42) 31%,
+    rgba(140, 15, 15, 0.14) 56%,
+    transparent 75%
+  );
+  filter: blur(60px);
   pointer-events: none;
   z-index: 1;
 }
 
-/* Red Blurry Glow - Bottom */
+/* Red Blurry Glow - Bottom — wide ellipse, only corners stay dark */
 .hero-glow-bottom {
   position: absolute;
   bottom: -25%;
   left: 50%;
   transform: translateX(-50%);
-  width: 70vw;
-  height: 45vh;
-  background: radial-gradient(ellipse at center, rgba(220, 38, 38, 0.2) 0%, rgba(220, 38, 38, 0.06) 40%, transparent 70%);
-  filter: blur(80px);
+  width: 125vw;
+  height: 90vh;
+  background: radial-gradient(
+    ellipse at 50% 70%,
+    rgba(220, 38, 38, 0.7) 0%,
+    rgba(185, 28, 28, 0.38) 30%,
+    rgba(140, 15, 15, 0.12) 55%,
+    transparent 75%
+  );
+  filter: blur(60px);
   pointer-events: none;
   z-index: 1;
 }
 
-/* Ghost Text (Behind Model) */
+/* Ghost Text (Behind Model) — subtle ghostly appearance vanishing downwards */
 .hero-ghost-text {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
   z-index: 5;
   pointer-events: none;
   user-select: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 0.85;
-  white-space: nowrap;
+  justify-content: center;
+  line-height: 0.78;
+  overflow: visible;
 }
 
 .hero-ghost-line {
-  font-family: var(--font-heading), sans-serif;
-  font-size: clamp(6rem, 16vw, 20rem);
-  font-weight: 400;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: clamp(8rem, 19vw, 23rem);
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  /* Top is faintly visible, bottom dissolves completely into the dark void */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.075) 0%,
+    rgba(255, 255, 255, 0.035) 25%,
+    rgba(255, 255, 255, 0.008) 50%,
+    transparent 75%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
-  opacity: 0.6;
+}
+
+.hero-ghost-line:nth-child(2) {
+  /* Lower word dissolves even faster into the background */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.02) 25%,
+    rgba(255, 255, 255, 0.005) 45%,
+    transparent 68%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Center Model Container */
 .hero-model-container {
   position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: clamp(300px, 35vw, 550px);
-  height: 85vh;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: clamp(420px, 45vw, 860px);
+  height: 92vh;
   z-index: 10;
   pointer-events: none;
 }
@@ -154,8 +194,8 @@
 .hero-model-image img {
   object-fit: cover;
   object-position: top center;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 80%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);
 }
 
 /* Hero CTA Buttons */
@@ -170,7 +210,7 @@
   font-size: 0.8rem;
   padding: 14px 32px;
   border-radius: 6px;
-  background: #DC2626;
+  background: #dc2626;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -179,7 +219,7 @@
 }
 
 .hero-btn-primary:hover {
-  background: #B91C1C;
+  background: #b91c1c;
   transform: translateY(-2px);
   box-shadow: 0 12px 35px rgba(220, 38, 38, 0.35);
 }
@@ -244,14 +284,14 @@
 
 @media (max-width: 1024px) {
   .hero-model-container {
-    width: clamp(250px, 45vw, 400px);
-    height: 70vh;
+    width: clamp(360px, 60vw, 600px);
+    height: 82vh;
     z-index: 5;
-    opacity: 0.35;
+    opacity: 0.4;
   }
 
   .hero-ghost-line {
-    font-size: clamp(4rem, 14vw, 10rem);
+    font-size: clamp(5rem, 16vw, 12rem);
   }
 
   .hero-glass-card {
@@ -261,13 +301,13 @@
 
 @media (max-width: 768px) {
   .hero-model-container {
-    width: 70vw;
-    height: 60vh;
-    opacity: 0.25;
+    width: 85vw;
+    height: 75vh;
+    opacity: 0.3;
   }
 
   .hero-ghost-line {
-    font-size: clamp(3rem, 18vw, 7rem);
+    font-size: clamp(4.5rem, 22vw, 11rem);
   }
 
   .hero-glass-card {
@@ -275,12 +315,14 @@
   }
 
   .hero-glow-top {
-    width: 100vw;
-    height: 40vh;
+    width: 90vw;
+    height: 60vh;
+    top: -20%;
   }
 
   .hero-glow-bottom {
-    width: 100vw;
-    height: 35vh;
+    width: 90vw;
+    height: 60vh;
+    bottom: -20%;
   }
 }

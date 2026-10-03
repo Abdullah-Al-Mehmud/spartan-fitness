@@ -173,16 +173,14 @@ export default function Hero() {
       <div ref={modelRef} className="hero-model-container">
         <div className="hero-model-image">
           <Image
-            src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=1200"
+            src="/hero.png"
             alt="Fitness model at Spartan Fitness"
             fill
             className="object-cover object-top"
-            sizes="(max-width: 768px) 80vw, 40vw"
+            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 70vw, 60vw"
             priority
           />
         </div>
-        {/* Gradient fade at the bottom of model */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent z-[1]" />
       </div>
 
       {/* ─── Content Layer ─── */}
@@ -292,9 +290,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
-      {/* ─── Bottom gradient fade ─── */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0A0A0A] to-transparent z-[14]" />
     </section>
   );
 }
