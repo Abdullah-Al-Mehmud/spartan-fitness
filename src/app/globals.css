@@ -83,8 +83,9 @@
 .hero-glow-top {
   position: absolute;
   top: -18%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin-inline: auto;
   width: 122vw;
   height: 88vh;
   background: radial-gradient(
@@ -103,8 +104,9 @@
 .hero-glow-bottom {
   position: absolute;
   bottom: -25%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin-inline: auto;
   width: 125vw;
   height: 90vh;
   background: radial-gradient(

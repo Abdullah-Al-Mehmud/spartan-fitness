@@ -20,81 +20,106 @@ export default function Hero() {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // 1. Line-by-line text splitting
-      let split;
-      if (headingRef.current) {
-        split = new SplitType(headingRef.current, { types: "lines" });
-        // Wrap each line in a overflow-hidden wrapper container
-        split.lines.forEach((line) => {
-          const wrap = document.createElement("div");
-          wrap.style.overflow = "hidden";
-          line.parentNode.insertBefore(wrap, line);
-          wrap.appendChild(line);
-        });
-      }
+    if (typeof window === "undefined") return;
 
+    // 1. Line-by-line text splitting
+    let split;
+    if (headingRef.current) {
+      split = new SplitType(headingRef.current, { types: "lines" });
+      split.lines.forEach((line) => {
+        const wrap = document.createElement("div");
+        wrap.style.overflow = "hidden";
+        line.parentNode.insertBefore(wrap, line);
+        wrap.appendChild(line);
+      });
+    }
+
+    const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-      // 2. Ghost text fade in
-      if (ghostRef.current) {
+      // 1. Atmospheric Red Glow Bloom (lights powering on in the dark)
+      tl.fromTo(
+        [".hero-glow-top", ".hero-glow-bottom"],
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, duration: 1.8, ease: "power2.out" }
+      );
+
+      // 2. Ghost text "Born there" — rising from depth, deblurring & manifesting into existence
+      const ghostLines = document.querySelectorAll(".hero-ghost-line");
+      if (ghostLines.length > 0) {
         tl.fromTo(
-          ghostRef.current,
-          { opacity: 0, scale: 0.95 },
-          { opacity: 1, scale: 1, duration: 1.4 }
+          ghostLines,
+          {
+            y: 80,
+            opacity: 0,
+            scale: 0.9,
+            filter: "blur(10px)",
+            letterSpacing: "-0.08em",
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            letterSpacing: "-0.03em",
+            duration: 1.6,
+            stagger: 0.2,
+            ease: "power3.out",
+          },
+          "-=1.5"
         );
       }
 
-      // 3. Model image reveal
+      // 3. Center model athlete emerges from darkness
       if (modelRef.current) {
         tl.fromTo(
           modelRef.current,
-          { y: 60, opacity: 0, scale: 0.95 },
-          { y: 0, opacity: 1, scale: 1, duration: 1.2 },
-          "-=1.0"
+          { y: 80, opacity: 0, scale: 0.94, filter: "brightness(0.65)" },
+          { y: 0, opacity: 1, scale: 1, filter: "brightness(1)", duration: 1.5, ease: "power3.out" },
+          "-=1.3"
         );
       }
 
-      // 4. Line by line heading reveal
+      // 4. Line by line heading reveal (crisp slide-up from overflow hidden)
       if (split && split.lines.length > 0) {
         tl.fromTo(
           split.lines,
-          { yPercent: 100, opacity: 0 },
-          { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.12 },
-          "-=0.9"
+          { yPercent: 110, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 1.0, stagger: 0.13, ease: "power4.out" },
+          "-=1.1"
         );
       }
 
-      // 5. Subtitle paragraph reveal
+      // 5. Sub-label tag reveal
+      tl.fromTo(
+        ".hero-tag",
+        { x: -20, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" },
+        "-=0.9"
+      );
+
+      // 6. Subtitle paragraph reveal
       tl.fromTo(
         ".hero-desc",
-        { y: 25, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7 },
-        "-=0.6"
-      );
-
-      // 6. CTA Buttons reveal
-      tl.fromTo(
-        ".hero-ctas > *",
-        { y: 25, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, stagger: 0.15 },
-        "-=0.5"
-      );
-
-      // 7. Glass cards reveal
-      tl.fromTo(
-        ".hero-glass-card",
-        { x: 40, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.8, stagger: 0.2 },
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" },
         "-=0.7"
       );
 
-      // 8. Sub-label tag
+      // 7. CTA Buttons staggered spring reveal
       tl.fromTo(
-        ".hero-tag",
-        { y: 15, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5 },
-        "-=0.8"
+        ".hero-ctas > *",
+        { y: 25, opacity: 0, scale: 0.96 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.15, ease: "back.out(1.4)" },
+        "-=0.6"
+      );
+
+      // 8. Glass cards reveal
+      tl.fromTo(
+        ".hero-glass-card",
+        { x: 50, opacity: 0, scale: 0.94 },
+        { x: 0, opacity: 1, scale: 1, duration: 0.85, stagger: 0.2, ease: "power3.out" },
+        "-=0.7"
       );
 
       // 9. Statistics counter animation
@@ -102,38 +127,51 @@ export default function Hero() {
       statItems.forEach((item) => {
         const targetVal = parseInt(item.getAttribute("data-target"), 10);
         const suffix = item.getAttribute("data-suffix") || "";
-        tl.fromTo(
-          item,
-          { textContent: "0" },
+        const counter = { val: 0 };
+        tl.to(
+          counter,
           {
-            textContent: targetVal,
-            duration: 1.5,
-            snap: { textContent: 1 },
+            val: targetVal,
+            duration: 1.6,
             ease: "power2.out",
             onUpdate: function () {
-              const currentVal = Math.ceil(parseFloat(item.textContent));
-              item.textContent = currentVal.toLocaleString() + suffix;
+              item.textContent = Math.ceil(counter.val).toLocaleString() + suffix;
             },
           },
           "-=1.2"
         );
       });
 
-      // 10. Floating glass cards gentle hover animation
+      // 10. Ambient idle floating animations
+      // Floating glass cards
       gsap.to(".hero-glass-card", {
-        y: "-=8",
-        duration: 3,
+        y: "-=7",
+        duration: 3.5,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
-        stagger: 0.5,
+        stagger: 0.6,
+        delay: 2.2,
       });
 
-      // Cleanup
-      return () => {
-        if (split) split.revert();
-      };
-    }
+      // Subtle slow breathing idle on model
+      if (modelRef.current) {
+        gsap.to(modelRef.current, {
+          y: "-=6",
+          duration: 5,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: 2.5,
+        });
+      }
+    }, heroRef);
+
+    // Cleanup
+    return () => {
+      ctx.revert();
+      if (split) split.revert();
+    };
   }, []);
 
   return (
