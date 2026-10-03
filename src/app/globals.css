@@ -1,9 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&family=Bebas+Neue&family=Geist:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 
 @theme inline {
-  --font-heading: var(--font-heading);
-  --font-body: var(--font-body);
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Poppins", sans-serif;
+  --font-sans: "Poppins", sans-serif;
 
   --color-primary: #dc2626;
   --color-primary-dark: #b91c1c;
@@ -81,7 +82,14 @@
    ═══════════════════════════════════════════════════ */
 
 :root {
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Poppins", sans-serif;
+  --font-sans: "Poppins", sans-serif;
   --hero-model-target-opacity: 1;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
 }
 
 @keyframes hero-glow-bloom {
@@ -214,7 +222,13 @@
 }
 
 .hero-ghost-line {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Poppins,
+    sans-serif;
   font-size: clamp(8rem, 19vw, 23rem);
   font-weight: 900;
   text-transform: uppercase;
@@ -303,7 +317,12 @@
   object-fit: cover;
   object-position: top center;
   mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 85%,
+    transparent 100%
+  );
 }
 
 /* Hero CTA Buttons */
@@ -356,27 +375,193 @@
 
 /* Glassmorphic Cards */
 .hero-glass-card {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 20px 24px;
-  width: 100%;
-  max-width: 320px;
-  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  padding: 24px 22px;
+  isolation: isolate;
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s ease;
   animation: hero-card-slide 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.38s both;
 }
 
-.hero-glass-card:nth-child(2) {
-  animation-delay: 0.48s;
+.hero-glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 2;
 }
 
-.hero-glass-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(220, 38, 38, 0.2);
-  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.1);
-  transform: translateY(-4px);
+.hero-glass-card::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -30%;
+  width: 55%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 45%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(255, 255, 255, 0.1) 55%,
+    transparent 100%
+  );
+  transform: skewX(-12deg);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-glass-card:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+/* Card column — pushed right, viewport-aware so it never clips */
+@media (min-width: 1024px) {
+  .hero-cards-col {
+    transform: translate(
+      min(240px, max(40px, calc((100vw - 1400px) / 2 + 24px))),
+      32px
+    );
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-cards-col {
+    transform: translate(
+      min(280px, max(44px, calc((100vw - 1400px) / 2 + 24px))),
+      40px
+    );
+  }
+}
+
+/* Gradient glow sitting BEHIND the glass card — the glass blurs this */
+.hero-cards-slab-glow {
+  position: absolute;
+  left: -48px;
+  top: -72px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(240, 68, 42, 0.55) 0%,
+    rgba(220, 38, 38, 0.25) 42%,
+    transparent 72%
+  );
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .hero-cards-slab-glow {
+    left: -130px;
+    top: -110px;
+    width: 380px;
+    height: 380px;
+  }
+}
+
+/* Card 1 — Full frosted glassmorphism (heavy backdrop blur) */
+.hero-glass-card-red {
+  background:
+    radial-gradient(
+      125% 90% at 16% -12%,
+      rgba(255, 255, 255, 0.34) 0%,
+      rgba(255, 255, 255, 0.06) 46%,
+      transparent 70%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.04) 50%,
+      rgba(255, 255, 255, 0.12) 100%
+    ),
+    linear-gradient(180deg, rgba(6, 8, 14, 0.46) 0%, rgba(6, 8, 14, 0.2) 100%);
+  backdrop-filter: blur(26px) saturate(185%) brightness(1.08);
+  -webkit-backdrop-filter: blur(26px) saturate(185%) brightness(1.08);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-top-color: rgba(255, 255, 255, 0.65);
+  border-left-color: rgba(255, 255, 255, 0.45);
+  border-right-color: rgba(255, 255, 255, 0.22);
+  border-bottom-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.65),
+    inset 0 -24px 48px -24px rgba(255, 255, 255, 0.22),
+    inset 0 0 60px 0 rgba(255, 255, 255, 0.07),
+    0 18px 48px -12px rgba(0, 0, 0, 0.55);
+}
+
+.hero-glass-card-red:hover {
+  background:
+    radial-gradient(
+      125% 90% at 16% -12%,
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(255, 255, 255, 0.1) 46%,
+      transparent 70%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.07) 50%,
+      rgba(255, 255, 255, 0.18) 100%
+    ),
+    linear-gradient(180deg, rgba(6, 8, 14, 0.38) 0%, rgba(6, 8, 14, 0.14) 100%);
+  transform: translateY(-6px);
+  border-top-color: rgba(255, 255, 255, 0.8);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.8),
+    inset 0 -24px 48px -24px rgba(255, 255, 255, 0.3),
+    inset 0 0 60px 0 rgba(255, 255, 255, 0.1),
+    0 28px 64px -14px rgba(0, 0, 0, 0.6);
+}
+
+/* True Glassmorphic Card (Right) — frosted, colorless, less blur */
+.hero-glass-card-frosted {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.06) 45%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(12px) saturate(160%) brightness(1.06);
+  -webkit-backdrop-filter: blur(12px) saturate(160%) brightness(1.06);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-top-color: rgba(255, 255, 255, 0.5);
+  border-left-color: rgba(255, 255, 255, 0.35);
+  border-right-color: rgba(255, 255, 255, 0.18);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
+    inset 0 0 24px 0 rgba(255, 255, 255, 0.05),
+    0 8px 32px 0 rgba(0, 0, 0, 0.35);
+}
+
+.hero-glass-card-frosted:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.08) 45%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  transform: translateY(-6px);
+  border-top-color: rgba(255, 255, 255, 0.65);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.6),
+    inset 0 0 24px 0 rgba(255, 255, 255, 0.08),
+    0 16px 48px 0 rgba(0, 0, 0, 0.45);
 }
 
 .hero-glass-icon {
@@ -406,10 +591,6 @@
   .hero-ghost-line {
     font-size: clamp(5rem, 16vw, 12rem);
   }
-
-  .hero-glass-card {
-    max-width: 280px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -423,10 +604,6 @@
     font-size: clamp(4.5rem, 22vw, 11rem);
   }
 
-  .hero-glass-card {
-    max-width: 100%;
-  }
-
   .hero-glow-top {
     width: 90vw;
     height: 60vh;
@@ -437,6 +614,13 @@
     width: 90vw;
     height: 60vh;
     bottom: -20%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-glass-card {
+    padding: 16px 14px;
+    border-radius: 20px;
   }
 }
 
@@ -456,4 +640,3 @@
     filter: none !important;
   }
 }
-

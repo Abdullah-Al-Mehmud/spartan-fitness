@@ -1,7 +1,7 @@
 "use client";
 
 import gsap from "gsap";
-import { ArrowRight, Flame, Play, Trophy } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
@@ -141,11 +141,11 @@ export default function Hero() {
             </p>
 
             {/* CTA Buttons */}
-            <div className="hero-ctas flex flex-wrap items-center gap-4 mt-8">
+            <div className="hero-ctas flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-7 sm:mt-8 max-w-md">
               <button
                 onClick={() => handleScroll("#contact")}
                 className="hero-btn-primary group">
-                <span className="relative z-10 flex items-center gap-2">
+                <span className="relative z-10 flex items-center justify-center gap-2">
                   Book a Free Session
                   <ArrowRight
                     size={16}
@@ -157,64 +157,56 @@ export default function Hero() {
               </button>
               <button
                 onClick={() => handleScroll("#programs")}
-                className="hero-btn-outline group">
+                className="hero-btn-outline group justify-center">
                 <Play size={14} className="fill-white" />
                 <span>View Programs</span>
               </button>
             </div>
           </div>
 
-          {/* ═══ Center spacer for model ═══ */}
-          <div className="hidden lg:block lg:col-span-3" />
+          {/* ═══ Right Column - Glassmorphic Cards (Side by Side) ═══ */}
+          <div className="hero-cards-col lg:col-span-6 xl:col-span-5 flex flex-row gap-3 sm:gap-5 justify-center sm:justify-start lg:justify-end items-center relative z-20 mt-12 lg:mt-0 lg:self-end lg:pb-4 w-full max-w-md lg:max-w-none mx-auto sm:mx-0">
+            {/* Soft glow sitting BEHIND the glass — gives the backdrop something to blur */}
+            <span className="hero-cards-slab-glow" aria-hidden="true" />
 
-          {/* ═══ Right Column - Glassmorphic Cards ═══ */}
-          <div className="lg:col-span-4 flex flex-col gap-5 items-end relative z-20">
-            {/* Card 1 - Client Satisfaction */}
-            <div className="hero-glass-card">
-              <div className="flex items-center gap-4">
-                <div className="hero-glass-icon">
-                  <Trophy size={20} className="text-primary" />
-                </div>
-                <div>
-                  <p
-                    className="hero-stat-number font-heading text-3xl text-white"
-                    data-target="100"
-                    data-suffix="%">
-                    0%
-                  </p>
-                  <p className="font-body text-[10px] text-white/40 uppercase tracking-wider mt-0.5">
-                    Client Satisfaction
-                  </p>
-                </div>
+            {/* Card 1 - Client Satisfaction (Neutral Glass) */}
+            <div className="hero-glass-card hero-glass-card-red flex-1 min-w-0 sm:flex-initial sm:w-[215px] md:w-[230px] xl:w-[245px] aspect-[1/1.12] sm:aspect-square flex flex-col justify-between">
+              <div>
+                <p
+                  className="hero-stat-number font-body font-light text-3xl sm:text-4xl lg:text-[3.25rem] text-white tracking-tight leading-none"
+                  data-target="100"
+                  data-suffix="%">
+                  0%
+                </p>
               </div>
-              <p className="font-body text-white/30 text-[11px] mt-3 leading-relaxed">
-                Every client matters. We ensure personalized attention to help
-                you reach your goals.
-              </p>
+              <div className="pt-2 sm:pt-4">
+                <h3 className="font-body font-medium text-white text-xs sm:text-sm lg:text-[15px] leading-snug">
+                  Client Satisfaction
+                </h3>
+                <p className="font-body text-white/80 text-[10px] sm:text-xs leading-relaxed mt-1 font-light">
+                  Guaranteed — every program is built around your goals.
+                </p>
+              </div>
             </div>
 
-            {/* Card 2 - Happy Members */}
-            <div className="hero-glass-card">
-              <div className="flex items-center gap-4">
-                <div className="hero-glass-icon">
-                  <Flame size={20} className="text-primary" />
-                </div>
-                <div>
-                  <p
-                    className="hero-stat-number font-heading text-3xl text-white"
-                    data-target="500"
-                    data-suffix="+">
-                    0+
-                  </p>
-                  <p className="font-body text-[10px] text-white/40 uppercase tracking-wider mt-0.5">
-                    Happy Members
-                  </p>
-                </div>
+            {/* Card 2 - Clients Trained (Frosted Glassmorphism) */}
+            <div className="hero-glass-card hero-glass-card-frosted flex-1 min-w-0 sm:flex-initial sm:w-[215px] md:w-[230px] xl:w-[245px] aspect-[1/1.12] sm:aspect-square flex flex-col justify-between">
+              <div>
+                <p
+                  className="hero-stat-number font-body font-light text-3xl sm:text-4xl lg:text-[3.25rem] text-white tracking-tight leading-none"
+                  data-target="500"
+                  data-suffix="+">
+                  0+
+                </p>
               </div>
-              <p className="font-body text-white/30 text-[11px] mt-3 leading-relaxed">
-                Join a community of fitness enthusiasts who have transformed
-                their lives with us.
-              </p>
+              <div className="pt-2 sm:pt-4">
+                <h3 className="font-body font-medium text-white text-xs sm:text-sm lg:text-[15px] leading-snug">
+                  Clients Trained
+                </h3>
+                <p className="font-body text-white/80 text-[10px] sm:text-xs leading-relaxed mt-1 font-light">
+                  Real people, real results — from beginners to athletes.
+                </p>
+              </div>
             </div>
           </div>
         </div>
