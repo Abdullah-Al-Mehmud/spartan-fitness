@@ -5,9 +5,11 @@ import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Transformations from "@/components/sections/Transformations";
 import Packages from "@/components/sections/Packages";
 import PlanComparison from "@/components/sections/PlanComparison";
+import LeadCapture from "@/components/sections/LeadCapture";
+import Gallery from "@/components/sections/Gallery";
 import Reviews from "@/components/sections/Reviews";
-import FAQ from "@/components/sections/FAQ";
 import CTA from "@/components/sections/CTA";
+import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 
@@ -15,7 +17,6 @@ import Footer from "@/components/layout/Footer";
 // import PersonalTraining from "@/components/sections/PersonalTraining";
 // import BMICalculator from "@/components/sections/BMICalculator";
 // import Nutrition from "@/components/sections/Nutrition";
-// import Gallery from "@/components/sections/Gallery";
 // import Blog from "@/components/sections/Blog";
 // import Timeline from "@/components/sections/Timeline";
 // import Programs from "@/components/sections/Programs";
@@ -26,7 +27,7 @@ export default function Home() {
     <>
       <Navbar />
       <main className="bg-[#0A0A0A] text-white overflow-hidden">
-        {/* 1. Hero & Value Proposition */}
+        {/* 1. Hero & Value Proposition (Untouched) */}
         <Hero />
 
         {/* 2. Brand Story & Culture */}
@@ -56,28 +57,22 @@ export default function Home() {
         {/* 8. Detailed Plan Comparison Table */}
         <PlanComparison />
 
-        {/* 9. Trainer Authority & Coaching Team (commented out) */}
-        {/* <Coaches /> */}
+        {/* NEW SECTION 1: Lead Capture Form (The Conversion Booster) */}
+        <LeadCapture />
 
-        {/* Add-on Service (commented out) */}
-        {/* <Nutrition /> */}
+        {/* NEW SECTION 2: Premium Gym Gallery (Visual Proof) */}
+        <Gallery />
 
-        {/* 10. Real Member Testimonials */}
+        {/* 9. Real Member Testimonials (Social Proof) */}
         <Reviews />
 
-        {/* Facility Gallery (commented out) */}
-        {/* <Gallery /> */}
-
-        {/* 11. Objection Handling & Details */}
-        <FAQ />
-
-        {/* Articles / Blog (commented out) */}
-        {/* <Blog /> */}
-
-        {/* 12. High-Impact Closing Offer */}
+        {/* 10. High-Impact Closing Offer */}
         <CTA />
 
-        {/* 13. Location, Schedule & Contact Form */}
+        {/* NEW SECTION 3: FAQ (Frequently Asked Questions - Before Locations & Footer) */}
+        <FAQ />
+
+        {/* 11. Location, Schedule & Contact Form */}
         <Contact />
       </main>
       <Footer />

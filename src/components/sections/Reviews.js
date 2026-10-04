@@ -3,58 +3,68 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import { Star, ChevronLeft, ChevronRight, CheckCircle2, Quote } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 const testimonials = [
   {
     id: 1,
-    name: "Sarah Khan",
-    role: "Member since 2023 • Banker",
+    name: "Saiduzzaman P. & Sajal D.",
+    role: "Local Guides • Mirpur 7 Branch",
     quote:
-      "This gym completely transformed my approach to fitness. The coaches at Mirpur-7 are incredible and the community keeps me motivated every single day. I have never felt stronger or more confident.",
-    rating: 5,
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
-    verified: true,
-  },
-  {
-    id: 2,
-    name: "Tanvir Rahman",
-    role: "Member since 2021 • Software Engineer",
-    quote:
-      "After trying countless gyms in Dhaka, I finally found a place that feels like home. The training programs are science-backed and the results speak for themselves. Down 30 pounds and still going.",
+      "Good place for gym, trainers are very friendly and professional, lots of machines are there. The best in Mirpur having a large set of instruments and an air-conditioned environment.",
     rating: 5,
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200",
     verified: true,
   },
   {
-    id: 3,
-    name: "Tasnim Ahmed",
-    role: "Member since 2022 • Entrepreneur",
+    id: 2,
+    name: "Md Ehatasham",
+    role: "Verified Google Reviewer",
     quote:
-      "The coaches here don't just train you — they educate you. I have learned more about proper form and nutrition in one year than I did in a decade of working out on my own.",
+      "Ambience is nice, Trainers are very friendly. A truly premium gym environment for anyone serious about fitness.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200",
+    verified: true,
+  },
+  {
+    id: 3,
+    name: "Sarah Khan",
+    role: "Female Exclusive Trainee • Mirpur 7",
+    quote:
+      "The dedicated female hours from 3:00 PM to 6:00 PM make it so safe and comfortable. The diet plans and certified trainers really helped me stay on track.",
+    rating: 5,
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
     verified: true,
   },
   {
     id: 4,
-    name: "Rashed Chowdhury",
-    role: "Member since 2020 • Corporate Manager",
+    name: "Tanvir Rahman",
+    role: "Local Guide • Mirpur 14",
     quote:
-      "From the moment you walk into the Mirpur-14 branch, you feel the energy. This isn't just a gym — it's a family. The accountability and support system here is completely unmatched.",
+      "World-class equipment, clean facilities, steam bath amenities, and extremely supportive coaches. Without a doubt the best gym experience in Mirpur.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
     verified: true,
   },
 ];
 
 export default function Reviews() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    align: "start",
-    skipSnaps: false,
-  });
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      align: "start",
+      skipSnaps: false,
+    },
+    [
+      Autoplay({
+        delay: 3500,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    ]
+  );
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
@@ -97,9 +107,9 @@ export default function Reviews() {
         {/* Header with Navigation Controls */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 sm:gap-8 mb-12 sm:mb-16 lg:mb-20">
           <SectionHeading
-            eyebrow="TESTIMONIALS"
-            title="Shattering Expectations"
-            subtext="Read real growth stories from our dedicated members who transformed their bodies and minds at Spartan Fitness."
+            eyebrow="GOOGLE REVIEWS"
+            title="Real Members. Real Results."
+            subtext="Read genuine Google reviews from members across our Mirpur-7 and Mirpur-14 branches."
             className="sm:max-w-2xl"
           />
 

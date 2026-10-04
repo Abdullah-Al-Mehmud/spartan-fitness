@@ -21,7 +21,7 @@ const stories = [
     beforeImage:
       "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=600",
     afterImage:
-      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=600",
+      "/78265362_438422313503100_3318399802856701952_n.jpg",
   },
   {
     id: 2,

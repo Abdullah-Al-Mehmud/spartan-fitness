@@ -69,13 +69,25 @@ const programLinks = [
 ];
 
 const branchesList = [
-  { name: "Mirpur-7 (Milk Vita Road)", phone: "01688-664545" },
-  { name: "Mirpur-14 (Kachukhet Road)", phone: "01688-664545" },
+  {
+    name: "Mirpur 7 Branch (Bike Zone Building)",
+    address: "Level-3, 1/1 Milk Vita Road, Block-3, Chalantika Mor",
+    phone: "01688-664545",
+  },
+  {
+    name: "Mirpur 14 Branch (Apex/Foodnest Building)",
+    address: "Level-4, Rofiq Tower, 211/8 Kachukhet Road",
+    phone: "01688-664545",
+  },
 ];
 
 const socialLinks = [
+  {
+    icon: Facebook,
+    href: "https://facebook.com/SPARTANFITNESSBD",
+    label: "Facebook (facebook.com/SPARTANFITNESSBD)",
+  },
   { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
   { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
 ];
 
@@ -125,10 +137,8 @@ export default function Footer() {
                 className="w-auto h-10 sm:h-11 object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </a>
-            <p className="font-body text-xs text-white/55 mt-3 sm:mt-4 leading-relaxed max-w-sm">
-              Spartan Fitness is one of the leading premium fitness centers in
-              Dhaka. We provide world-class gym equipment, certified trainers,
-              and personalized coaching to help you build raw strength.
+            <p className="font-body text-xs text-white/60 mt-3 sm:mt-4 leading-relaxed max-w-sm">
+              Join a community of fitness enthusiasts. Enjoy world-class equipment, free personalized diet plans, and expert trainers in a fully air-conditioned, premium space.
             </p>
             <div className="flex items-center gap-3 mt-5 sm:mt-6">
               {socialLinks.map((s, idx) => {

@@ -157,33 +157,33 @@ export default function About() {
             {/* Main large image */}
             <div className="about-img-main absolute top-0 left-0 w-[64%] h-[76%] rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-[#121214]">
               <Image
-                src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&q=80&w=800"
-                alt="Spartan Gym interior"
+                src="/128868841_668587480486581_6912739221833064982_n.jpg"
+                alt="Spartan Fitness main training arena"
                 fill
                 sizes="(max-width: 640px) 65vw, (max-width: 1024px) 50vw, 30vw"
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="object-cover transition-all duration-700 hover:scale-105"
               />
             </div>
 
             {/* Overlapping top-right image */}
             <div className="about-img-tr absolute top-6 sm:top-10 right-0 w-[42%] h-[48%] rounded-2xl overflow-hidden border border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.9)] bg-[#121214]">
               <Image
-                src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80&w=600"
-                alt="Member lifting weights"
+                src="/485309162_1051877876962518_2632745172042704375_n.jpg"
+                alt="Spartan Fitness coaches with championship trophy"
                 fill
                 sizes="(max-width: 640px) 45vw, (max-width: 1024px) 35vw, 20vw"
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="object-cover transition-all duration-700 hover:scale-105"
               />
             </div>
 
             {/* Overlapping bottom-left image */}
             <div className="about-img-bl absolute bottom-0 right-[16%] w-[48%] h-[40%] rounded-2xl overflow-hidden border border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.9)] bg-[#121214]">
               <Image
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600"
-                alt="Barbell rack section"
+                src="/482207656_1042939214523051_8760506858185054018_n.jpg"
+                alt="Spartan dumbbell training section"
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 22vw"
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="object-cover transition-all duration-700 hover:scale-105"
               />
             </div>
 

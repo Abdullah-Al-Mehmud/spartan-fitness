@@ -20,11 +20,11 @@ export default function CTA() {
       {/* Veiled background gym image */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <Image
-          src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=1200"
-          alt="Spartan athlete training in gym"
+          src="/485851646_1052136656936640_8896535166201266335_n.jpg"
+          alt="Spartan Fitness strength facility"
           fill
           sizes="100vw"
-          className="object-cover object-center grayscale opacity-[0.12]"
+          className="object-cover object-center grayscale opacity-[0.16]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#0A0A0A]/60 to-[#0A0A0A]" />
       </div>
@@ -65,42 +65,35 @@ export default function CTA() {
         >
           <span className="inline-flex items-center gap-2 text-primary font-body text-[11px] sm:text-xs font-semibold tracking-[0.25em] uppercase mb-3 sm:mb-4">
             <span className="w-4 sm:w-5 h-[2px] bg-primary rounded-full inline-block" />
-            UNLEASH YOUR POTENTIAL
+            LIMITED-TIME 50% DISCOUNT
           </span>
 
-          <h2 className="font-heading text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tight text-white font-extrabold leading-[1.05] mb-5 sm:mb-6">
-            Start Your Fitness <br />
+          <h2 className="font-heading text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white font-extrabold leading-[1.08] mb-5 sm:mb-6 max-w-3xl">
+            Ready to Start Your{" "}
             <span className="text-primary">
-              Journey Today
+              Transformation?
             </span>
           </h2>
 
           <p className="font-body text-xs sm:text-sm md:text-base text-white/70 leading-relaxed max-w-xl mb-8 sm:mb-10">
-            Join Spartan Fitness Dhaka today and get access to elite trainers, customized strength training plans, and a supportive, relentless community that doesn&apos;t settle for average.
+            Don&apos;t miss out on our limited-time 50% discount offers. Call us directly to book your package.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto">
             <button
-              onClick={() => handleScroll("#contact")}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-body text-xs font-bold uppercase tracking-[0.2em] px-8 sm:px-9 py-3.5 sm:py-4 rounded-md bg-primary text-white hover:bg-primary-dark transition-all duration-300 hover:scale-105 cursor-pointer"
+              onClick={() => handleScroll("#claim-offer")}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-body text-xs font-bold uppercase tracking-[0.2em] px-8 sm:px-9 py-3.5 sm:py-4 rounded-md bg-primary text-white hover:bg-primary-dark transition-all duration-300 hover:scale-105 cursor-pointer shadow-lg"
             >
-              <span>Join Now</span>
+              <span>Claim 50% Off Now</span>
               <ArrowRight size={15} />
             </button>
 
-            <button
-              onClick={() => handleScroll("#contact")}
-              className="w-full sm:w-auto inline-flex items-center justify-center font-body text-xs font-bold uppercase tracking-[0.2em] px-7 sm:px-8 py-3.5 sm:py-4 rounded-md bg-white/[0.05] border border-white/15 text-white hover:border-primary hover:text-primary transition-all duration-300 cursor-pointer"
-            >
-              Book Free Trial
-            </button>
-
             <a
-              href="tel:01688-664545"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-body text-xs font-bold uppercase tracking-[0.2em] px-7 sm:px-8 py-3.5 sm:py-4 rounded-md bg-white/[0.05] border border-white/15 text-white hover:border-primary hover:text-primary transition-all duration-300 cursor-pointer"
+              href="tel:01688664545"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-body text-xs sm:text-sm font-bold uppercase tracking-[0.16em] px-7 sm:px-8 py-3.5 sm:py-4 rounded-md bg-white/[0.08] border border-white/20 text-white hover:border-primary hover:text-primary transition-all duration-300 cursor-pointer"
             >
-              <Phone size={14} />
-              <span>01688-664545</span>
+              <Phone size={15} className="text-primary" />
+              <span>📞 01688-664545</span>
             </a>
           </div>
         </motion.div>

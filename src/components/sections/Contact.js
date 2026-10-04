@@ -4,29 +4,33 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { MapPin, Phone, Clock, Send, CheckCircle, Star, Compass } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 const branches = [
   {
     id: "mirpur-7",
-    name: "Spartan Fitness Mirpur-7",
-    rating: "4.5+",
-    reviews: "320+ Reviews",
-    address: "Block-3, 1/1 Milk Vita Road, Section-7, Mirpur, Dhaka",
+    name: "Spartan Fitness Mirpur 7 Branch",
+    rating: "4.5",
+    reviews: "Google Reviews",
+    image: "/128868841_668587480486581_6912739221833064982_n.jpg",
+    address:
+      "Level-3, 1/1 Milk Vita Road, Plot-B, Avenue-4, Block-3, Chalantika Mor, Mirpur (Bike Zone Building).",
     phone: "01688-664545",
-    hours: "6:00 AM – 11:30 PM (Everyday)",
     mapIframe:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.0982705164104!2d90.3621415!3d23.8151246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c1264c126d4b%3A0xc31cb0270a6c9cf1!2sMirpur%20Section%207!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd",
     directionsUrl: "https://maps.google.com/?q=Spartan+Fitness+Mirpur+7+Dhaka",
   },
   {
     id: "mirpur-14",
-    name: "Spartan Fitness Mirpur-14",
-    rating: "4.2+",
-    reviews: "180+ Reviews",
-    address: "Level-4, Rofiq Tower, 211/8 Kachukhet Road, Mirpur-14, Dhaka",
+    name: "Spartan Fitness Mirpur 14 Branch",
+    rating: "4.5",
+    reviews: "Google Reviews",
+    image: "/644271147_1327952692688367_6006543335469826725_n.jpg",
+    address:
+      "Level-4, Rofiq Tower, 211/8 Kachukhet Road (Apex/Foodnest Building).",
     phone: "01688-664545",
-    hours: "6:00 AM – 11:30 PM (Everyday)",
+    image: "/644271147_1327952692688367_6006543335469826725_n.jpg",
     mapIframe:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.597652758137!2d90.3888365!3d23.7972846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7a95cd8c847%3A0x6b245037d04a6011!2sMirpur%2014%20Bus%20Stand!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd",
     directionsUrl: "https://maps.google.com/?q=Spartan+Fitness+Mirpur+14+Kachukhet+Road+Dhaka",
@@ -63,8 +67,27 @@ export default function Contact() {
 
   const details = [
     { icon: MapPin, label: "Address", value: activeBranch.address },
-    { icon: Phone, label: "Phone", value: activeBranch.phone },
-    { icon: Clock, label: "Hours", value: activeBranch.hours },
+    { icon: Phone, label: "Direct Phone", value: activeBranch.phone },
+    {
+      icon: Clock,
+      label: "Timing & Schedule",
+      value: (
+        <div className="space-y-1.5 mt-1">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs sm:text-sm">
+            <span className="text-white/60">Sat – Thu:</span>
+            <span className="font-semibold text-white">7:00 AM to 11:30 PM</span>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs sm:text-sm bg-primary/15 border border-primary/30 px-2.5 py-1.5 rounded-lg">
+            <span className="text-primary font-bold">Female Exclusive Hour:</span>
+            <span className="font-bold text-white">3:00 PM to 6:00 PM (Sat-Thu)</span>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs sm:text-sm">
+            <span className="text-white/60">Friday:</span>
+            <span className="font-semibold text-white">4:00 PM to 10:00 PM (Female Off)</span>
+          </div>
+        </div>
+      ),
+    },
   ];
 
   return (
@@ -83,9 +106,9 @@ export default function Contact() {
 
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 relative z-10">
         <SectionHeading
-          eyebrow="GET IN TOUCH"
-          title="Connect With Spartan"
-          subtext="Have questions about classes, trainers, or pricing? Reach out or visit one of our two premium branches in Mirpur."
+          eyebrow="LOCATIONS & SCHEDULE"
+          title="Find Your Nearest Spartan Fitness"
+          subtext="Two premier locations in Mirpur. Visit us or call to claim your 50% discount on admission today."
           className="mb-8 sm:mb-12"
         />
 
@@ -125,6 +148,21 @@ export default function Contact() {
 
                 <div className="h-px w-full bg-white/10 my-4 sm:my-6" />
 
+                {/* Real Branch Photo Preview */}
+                <div className="relative w-full h-36 sm:h-44 rounded-xl overflow-hidden mb-5 border border-white/10 shadow-md">
+                  <Image
+                    src={activeBranch.image}
+                    alt={activeBranch.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-700 hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                  <span className="absolute bottom-2.5 left-3 text-[10px] font-bold uppercase tracking-wider text-white px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/15">
+                    {activeBranch.id === "mirpur-7" ? "Mirpur 7 Training Arena" : "Mirpur 14 Training Arena"}
+                  </span>
+                </div>
+
                 <ul className="space-y-4 sm:space-y-5">
                   {details.map((d, i) => {
                     const Icon = d.icon;
@@ -133,13 +171,13 @@ export default function Contact() {
                         <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
                           <Icon size={16} />
                         </div>
-                        <div className="min-w-0">
+                        <div className="min-w-0 flex-1">
                           <span className="text-[10px] font-body uppercase tracking-[0.2em] text-white/40 block">
                             {d.label}
                           </span>
-                          <span className="text-xs sm:text-sm font-body text-white/90 leading-relaxed mt-0.5 block break-words">
+                          <div className="text-xs sm:text-sm font-body text-white/90 leading-relaxed mt-0.5 block break-words">
                             {d.value}
-                          </span>
+                          </div>
                         </div>
                       </li>
                     );

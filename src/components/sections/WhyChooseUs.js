@@ -6,44 +6,29 @@ import SectionHeading from "@/components/ui/SectionHeading";
 
 const cards = [
   {
-    icon: Shield,
-    title: "Modern Equipment",
-    desc: "Train with world-class, premium international biomechanic strength machinery, Olympic platforms, and high-performance cardio decks.",
-  },
-  {
     icon: Award,
-    title: "Certified Trainers",
-    desc: "Every coach holds verified industry-leading credentials (such as NASM, CSCS, and dietitian registrations) to guide you safely.",
-  },
-  {
-    icon: Activity,
-    title: "Personal Coaching",
-    desc: "Receive dedicated 1-on-1 kinetic assessments, tailored lifting logs, and progress diagrams engineered for muscle stimulus.",
+    title: "Free Expert Guidance",
+    desc: "Get a customized diet plan and exercise routine from our certified trainers at no extra cost.",
   },
   {
     icon: Sparkles,
-    title: "Nutrition Support",
-    desc: "Get customized macronutrient breakdowns, meal prep recipes, and diet blueprints aligned with your fat oxidation goals.",
+    title: "Premium Comfort",
+    desc: "Train in a fully air-conditioned, spacious environment with surreal views from our cardio sections.",
   },
   {
     icon: Clock,
-    title: "Flexible Membership",
-    desc: "No locked contracts. Enjoy flexible monthly, quarterly, and yearly tiers with hassle-free holds and membership freezes.",
+    title: "Exclusive Female Hours",
+    desc: "Dedicated, safe, and comfortable workout hours for women every Saturday to Thursday (3:00 PM - 6:00 PM).",
+  },
+  {
+    icon: Shield,
+    title: "World-Class Equipment",
+    desc: "Achieve your goals faster with top-branded, modern equipment and a surround sound system to keep you pumped.",
   },
   {
     icon: Heart,
-    title: "Clean Environment",
-    desc: "Train in comfort. We maintain surgical sanitation standards with continuous cleaning shifts on all machines and lockers.",
-  },
-  {
-    icon: Users,
-    title: "Supportive Community",
-    desc: "Surround yourself with like-minded, ambitious members who encourage consistency, hard work, and mutual athletic growth.",
-  },
-  {
-    icon: DollarSign,
-    title: "Affordable Pricing",
-    desc: "Enjoy top-tier boutique luxury gym facilities and coaching at highly competitive BDT pricing plans in Dhaka.",
+    title: "Luxury Amenities",
+    desc: "Relax post-workout with our Steam/Sauna bath and enjoy free premium shower facilities and WiFi.",
   },
 ];
 
@@ -83,14 +68,14 @@ export default function WhyChooseUs() {
 
       {/* Watermark */}
       <span className="spartan-watermark top-8 sm:top-12" aria-hidden>
-        WHY SPARTAN
+        BENEFITS
       </span>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 relative z-10">
         <SectionHeading
-          eyebrow="WHY SPARTAN"
-          title="Designed for High Performance"
-          subtext="Dhaka's leading premium fitness ecosystem, offering the perfect blend of luxury, scientific coaching, and competitive pricing."
+          eyebrow="WHY CHOOSE US"
+          title="Beyond a Gym. A Complete Fitness Experience."
+          subtext="Everything you need to achieve your dream physique, all under one roof."
           className="mb-12 sm:mb-16 lg:mb-20"
         />
 
@@ -99,7 +84,7 @@ export default function WhyChooseUs() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
         >
           {cards.map((card, idx) => {
             const Icon = card.icon;
