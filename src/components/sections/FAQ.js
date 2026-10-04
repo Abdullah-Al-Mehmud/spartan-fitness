@@ -41,20 +41,20 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="relative py-28 lg:py-36 bg-[#0D0D0F] overflow-hidden">
+    <section id="faq" className="relative py-16 sm:py-24 lg:py-36 bg-[#0D0D0F] overflow-hidden">
       {/* Ambient background glow */}
-      <div className="crimson-ambient-glow -top-40 -left-40 w-[600px] h-[600px] opacity-25 pointer-events-none" />
+      <div className="crimson-ambient-glow -top-40 -left-40 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] opacity-25 pointer-events-none" />
 
       {/* Grid */}
       <div className="spartan-dot-grid absolute inset-0 opacity-[0.035] pointer-events-none" />
 
       {/* Watermark */}
-      <span className="spartan-watermark top-12" aria-hidden>
+      <span className="spartan-watermark top-8 sm:top-12" aria-hidden>
         FAQ
       </span>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 lg:gap-20">
           {/* Left Column: Sticky Title */}
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-36">
@@ -74,19 +74,19 @@ export default function FAQ() {
               return (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.05 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.4, delay: idx * 0.04 }}
                   className="border-b border-white/10"
                 >
                   <button
                     onClick={() => toggleFAQ(idx)}
                     aria-expanded={isOpen}
-                    className="w-full py-6 sm:py-7 flex items-start gap-4 sm:gap-6 text-left focus:outline-none rounded-md cursor-pointer group"
+                    className="w-full py-5 sm:py-7 flex items-start gap-3 sm:gap-6 text-left focus:outline-none rounded-md cursor-pointer group"
                   >
                     <span
-                      className={`font-heading text-sm sm:text-base pt-0.5 w-7 flex-shrink-0 font-bold transition-colors duration-300 ${
+                      className={`font-heading text-xs sm:text-base pt-0.5 w-6 sm:w-7 flex-shrink-0 font-bold transition-colors duration-300 ${
                         isOpen ? "text-primary" : "text-white/30 group-hover:text-primary"
                       }`}
                     >
@@ -94,7 +94,7 @@ export default function FAQ() {
                     </span>
 
                     <span
-                      className={`flex-1 font-heading text-base sm:text-lg uppercase tracking-tight leading-snug font-bold transition-colors duration-300 ${
+                      className={`flex-1 font-heading text-sm sm:text-base md:text-lg uppercase tracking-tight leading-snug font-bold transition-colors duration-300 ${
                         isOpen ? "text-primary" : "text-white group-hover:text-primary"
                       }`}
                     >
@@ -102,7 +102,7 @@ export default function FAQ() {
                     </span>
 
                     <span
-                      className={`w-9 h-9 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                      className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                         isOpen
                           ? "bg-primary border-primary text-white shadow-[0_0_15px_rgba(220,38,38,0.5)]"
                           : "border-white/15 bg-white/[0.04] text-white/60 group-hover:border-primary/50 group-hover:text-white"
@@ -110,10 +110,10 @@ export default function FAQ() {
                     >
                       <motion.span
                         animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.25 }}
                         className="flex"
                       >
-                        <ChevronDown size={15} />
+                        <ChevronDown size={14} className="sm:w-4 sm:h-4" />
                       </motion.span>
                     </span>
                   </button>
@@ -127,7 +127,7 @@ export default function FAQ() {
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <p className="text-white/70 pl-11 sm:pl-13 pr-6 pb-7 font-body text-sm leading-relaxed">
+                        <p className="text-white/70 pl-9 sm:pl-13 pr-4 sm:pr-6 pb-5 sm:pb-7 font-body text-xs sm:text-sm leading-relaxed">
                           {faq.answer}
                         </p>
                       </motion.div>

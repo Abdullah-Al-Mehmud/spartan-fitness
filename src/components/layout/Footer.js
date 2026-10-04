@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Send, Check } from "lucide-react";
 
-// Custom SVG Social Icons to prevent package version dependency errors
+// Custom SVG Social Icons
 const Instagram = (props) => (
   <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -27,17 +27,17 @@ const Twitter = (props) => (
 const quickLinks = [
   { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
-  { label: "Services", href: "#programs" },
-  { label: "Trainers", href: "#trainers" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Contact", href: "#contact" },
+  { label: "Why Spartan", href: "#why-choose-us" },
+  { label: "Transformations", href: "#transformations" },
+  { label: "Membership Plans", href: "#pricing" },
+  { label: "Get in Touch", href: "#contact" },
 ];
 
 const programLinks = [
-  { label: "Personal Training", href: "#programs" },
-  { label: "Strength & Bodybuilding", href: "#programs" },
-  { label: "Weight Loss Systems", href: "#programs" },
-  { label: "Nutrition Guidance", href: "#programs" },
+  { label: "Personal Training", href: "#why-choose-us" },
+  { label: "Strength & Bodybuilding", href: "#why-choose-us" },
+  { label: "Weight Loss Systems", href: "#transformations" },
+  { label: "Nutrition Guidance", href: "#pricing" },
 ];
 
 const branchesList = [
@@ -58,29 +58,45 @@ export default function Footer() {
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (!email) return;
-    console.log("Newsletter subscribe:", email);
     setSubscribed(true);
     setEmail("");
     setTimeout(() => setSubscribed(false), 5000);
   };
 
-  return (
-    <footer className="bg-dark text-white border-t border-white/5 relative overflow-hidden">
-      {/* Background Accent glow */}
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+  const handleNav = (href) => {
+    const el = document.querySelector(href);
+    if (!el) return;
+    if (typeof window !== "undefined" && window.__lenis) {
+      window.__lenis.scrollTo(el, { offset: -80, duration: 1.0 });
+    } else {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-      <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
-          
+  return (
+    <footer className="bg-[#0A0A0A] text-white border-t border-white/10 relative overflow-hidden">
+      {/* Background Accent glow */}
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 py-12 sm:py-16 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8">
           {/* Logo and Tagline Column */}
           <div className="lg:col-span-4 flex flex-col">
-            <a href="#hero" className="font-heading text-3xl tracking-tighter uppercase focus:outline-none">
-              <span className="text-primary font-bold">S</span>partan
+            <a
+              href="#hero"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNav("#hero");
+              }}
+              className="font-heading text-2xl sm:text-3xl tracking-tighter uppercase focus:outline-none flex items-center gap-0.5"
+            >
+              <span className="text-primary font-bold">SPARTAN</span>
+              <span className="text-white/60 text-lg ml-1 font-body font-light">FITNESS</span>
             </a>
-            <p className="font-body text-xs text-white/55 mt-4 leading-relaxed max-w-sm">
+            <p className="font-body text-xs text-white/55 mt-3 sm:mt-4 leading-relaxed max-w-sm">
               Spartan Fitness is one of the leading premium fitness centers in Dhaka. We provide world-class gym equipment, certified trainers, and personalized coaching to help you build raw strength.
             </p>
-            <div className="flex items-center gap-4 mt-6">
+            <div className="flex items-center gap-3 mt-5 sm:mt-6">
               {socialLinks.map((s, idx) => {
                 const Icon = s.icon;
                 return (
@@ -89,7 +105,7 @@ export default function Footer() {
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-xl bg-white/5 hover:bg-primary border border-white/5 hover:border-primary flex items-center justify-center text-white/60 hover:text-white transition-all duration-350"
+                    className="w-9 h-9 rounded-xl bg-white/5 hover:bg-primary border border-white/10 hover:border-primary flex items-center justify-center text-white/60 hover:text-white transition-all duration-300"
                     aria-label={s.label}
                   >
                     <Icon />
@@ -101,14 +117,18 @@ export default function Footer() {
 
           {/* Quick Links Column */}
           <div className="lg:col-span-2 col-span-1">
-            <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mb-6">
+            <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mb-4 sm:mb-6 font-bold">
               Explore
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5 sm:space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNav(link.href);
+                    }}
                     className="font-body text-xs text-white/50 hover:text-primary transition-colors duration-200"
                   >
                     {link.label}
@@ -120,14 +140,18 @@ export default function Footer() {
 
           {/* Programs Column */}
           <div className="lg:col-span-3 col-span-1">
-            <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mb-6">
+            <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mb-4 sm:mb-6 font-bold">
               Programs
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5 sm:space-y-3">
               {programLinks.map((link, idx) => (
                 <li key={idx}>
                   <a
                     href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNav(link.href);
+                    }}
                     className="font-body text-xs text-white/50 hover:text-primary transition-colors duration-200"
                   >
                     {link.label}
@@ -136,7 +160,7 @@ export default function Footer() {
               ))}
             </ul>
 
-            <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mt-8 mb-4">
+            <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mt-6 sm:mt-8 mb-3 sm:mb-4 font-bold">
               Dhaka Branches
             </h4>
             <ul className="space-y-2">
@@ -150,28 +174,28 @@ export default function Footer() {
           </div>
 
           {/* Newsletter Column */}
-          <div className="lg:col-span-3">
-            <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mb-6">
+          <div className="lg:col-span-3 sm:col-span-2">
+            <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mb-4 sm:mb-6 font-bold">
               Newsletter
             </h4>
             <p className="font-body text-xs text-white/50 mb-4 leading-relaxed">
               Subscribe to get fitness tips, nutritional guides, and exclusive membership offers in Dhaka.
             </p>
-            
+
             {subscribed ? (
               <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 rounded-xl p-3 text-xs">
                 <Check size={14} className="flex-shrink-0" />
                 <span>Thank you! You are subscribed.</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-2">
+              <form onSubmit={handleSubscribe} className="flex flex-col xs:flex-row gap-2">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   required
-                  className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl font-body text-xs text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                  className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl font-body text-xs text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all duration-300"
                 />
                 <button
                   type="submit"
@@ -183,21 +207,34 @@ export default function Footer() {
               </form>
             )}
           </div>
-
         </div>
       </div>
 
       {/* Copyright Bar */}
-      <div className="border-t border-white/5 py-6">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-body text-[10px] text-white/30 uppercase tracking-widest text-center md:text-left">
-            &copy; {new Date().getFullYear()} Spartan Fitness. All rights reserved. | Developed by <a href="https://stellarworm.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Stellar Worm</a>
+      <div className="border-t border-white/5 py-5 sm:py-6">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <p className="font-body text-[10px] text-white/30 uppercase tracking-widest">
+            &copy; {new Date().getFullYear()} Spartan Fitness. All rights reserved.
           </p>
-          <div className="flex gap-6">
-            <a href="#pricing" className="font-body text-[10px] text-white/30 hover:text-primary uppercase tracking-widest transition-colors">
+          <div className="flex gap-5 sm:gap-6">
+            <a
+              href="#pricing"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNav("#pricing");
+              }}
+              className="font-body text-[10px] text-white/30 hover:text-primary uppercase tracking-widest transition-colors"
+            >
               Privacy Policy
             </a>
-            <a href="#pricing" className="font-body text-[10px] text-white/30 hover:text-primary uppercase tracking-widest transition-colors">
+            <a
+              href="#pricing"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNav("#pricing");
+              }}
+              className="font-body text-[10px] text-white/30 hover:text-primary uppercase tracking-widest transition-colors"
+            >
               Terms of Service
             </a>
           </div>

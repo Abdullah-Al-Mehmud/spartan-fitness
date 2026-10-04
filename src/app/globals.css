@@ -846,21 +846,24 @@ body {
   z-index: 2;
 }
 
-/* Ghost watermark text behind sections */
+/* Ghost watermark text behind sections - responsive clamp */
 .spartan-watermark {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-heading), sans-serif;
   font-weight: 900;
-  font-size: clamp(6rem, 16vw, 17rem);
-  line-height: 0.8;
+  font-size: clamp(2.75rem, 11vw, 15rem);
+  line-height: 0.85;
   letter-spacing: -0.04em;
   text-transform: uppercase;
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
   z-index: 0;
+  max-width: 95vw;
+  overflow: hidden;
+  text-overflow: clip;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 75%);
   -webkit-background-clip: text;
   background-clip: text;

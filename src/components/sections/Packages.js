@@ -63,24 +63,29 @@ export default function Packages() {
 
   const handleScroll = (href) => {
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (!el) return;
+    if (typeof window !== "undefined" && window.__lenis) {
+      window.__lenis.scrollTo(el, { offset: -80, duration: 1.0 });
+    } else {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
-    <section id="pricing" className="relative pt-28 lg:pt-36 pb-12 bg-[#0D0D0F] overflow-hidden">
+    <section id="pricing" className="relative pt-16 sm:pt-24 lg:pt-36 pb-8 sm:pb-12 bg-[#0D0D0F] overflow-hidden">
       {/* Ambient background glows */}
-      <div className="crimson-ambient-glow -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[500px] opacity-35 pointer-events-none" />
+      <div className="crimson-ambient-glow -top-32 left-1/2 -translate-x-1/2 w-[350px] sm:w-[800px] h-[350px] sm:h-[500px] opacity-35 pointer-events-none" />
 
       {/* Grid */}
       <div className="spartan-dot-grid absolute inset-0 opacity-[0.035] pointer-events-none" />
 
       {/* Watermark */}
-      <span className="spartan-watermark top-12" aria-hidden>
+      <span className="spartan-watermark top-8 sm:top-12" aria-hidden>
         PLANS
       </span>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 lg:mb-20">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8 mb-12 sm:mb-16 lg:mb-20">
           <SectionHeading
             eyebrow="MEMBERSHIP PLANS"
             title="Choose Your Level"
@@ -92,7 +97,7 @@ export default function Packages() {
           <div className="flex items-center gap-1 p-1 rounded-full border border-white/15 bg-white/[0.05] backdrop-blur-md self-start md:self-auto">
             <button
               onClick={() => setBillingCycle("monthly")}
-              className={`px-5 py-2 rounded-full font-body text-xs font-semibold uppercase tracking-wider transition-all duration-300 relative cursor-pointer ${
+              className={`px-4 sm:px-5 py-2 rounded-full font-body text-xs font-semibold uppercase tracking-wider transition-all duration-300 relative cursor-pointer ${
                 billingCycle === "monthly" ? "text-white" : "text-white/60 hover:text-white"
               }`}
             >
@@ -106,7 +111,7 @@ export default function Packages() {
             </button>
             <button
               onClick={() => setBillingCycle("yearly")}
-              className={`px-5 py-2 rounded-full font-body text-xs font-semibold uppercase tracking-wider transition-all duration-300 relative flex items-center gap-2 cursor-pointer ${
+              className={`px-4 sm:px-5 py-2 rounded-full font-body text-xs font-semibold uppercase tracking-wider transition-all duration-300 relative flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
                 billingCycle === "yearly" ? "text-white" : "text-white/60 hover:text-white"
               }`}
             >
@@ -117,7 +122,7 @@ export default function Packages() {
                 />
               )}
               Yearly
-              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-white/20 text-white">
+              <span className="text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-white/20 text-white">
                 Save 20%
               </span>
             </button>
@@ -132,20 +137,20 @@ export default function Packages() {
             return (
               <motion.div
                 key={plan.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 className={`relative flex flex-col ${plan.isFeatured ? "md:-mt-3 md:-mb-3" : ""}`}
               >
                 <div
-                  className={`flex-1 p-8 sm:p-9 flex flex-col justify-between ${
+                  className={`flex-1 p-6 sm:p-8 lg:p-9 flex flex-col justify-between ${
                     plan.isFeatured ? "spartan-glass-red" : "spartan-glass-card"
                   }`}
                 >
                   {plan.isFeatured && (
-                    <div className="absolute top-0 right-8 -translate-y-1/2">
-                      <span className="inline-flex items-center gap-1.5 bg-white text-[#0A0A0A] text-[10px] font-extrabold uppercase tracking-[0.2em] px-3.5 py-1.5 rounded-full shadow-xl">
+                    <div className="absolute top-0 right-6 sm:right-8 -translate-y-1/2">
+                      <span className="inline-flex items-center gap-1.5 bg-white text-[#0A0A0A] text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] px-3.5 py-1.5 rounded-full shadow-xl">
                         <Sparkles size={11} className="text-primary fill-primary" />
                         Most Popular
                       </span>
@@ -155,7 +160,7 @@ export default function Packages() {
                   <div>
                     {/* Header */}
                     <div className="flex items-start justify-between">
-                      <h3 className="font-heading text-xl uppercase tracking-tight text-white font-bold">
+                      <h3 className="font-heading text-lg sm:text-xl uppercase tracking-tight text-white font-bold">
                         {plan.name}
                       </h3>
                       <span className="font-heading text-sm opacity-40 font-semibold">0{i + 1}</span>
@@ -165,9 +170,9 @@ export default function Packages() {
                     </p>
 
                     {/* Price */}
-                    <div className="mt-7 flex items-baseline gap-1.5">
-                      <span className="font-heading text-2xl font-bold text-primary">৳</span>
-                      <span className="font-heading text-5xl lg:text-6xl font-extrabold leading-none tracking-tight text-white">
+                    <div className="mt-6 sm:mt-7 flex items-baseline gap-1.5">
+                      <span className="font-heading text-xl sm:text-2xl font-bold text-primary">৳</span>
+                      <span className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-none tracking-tight text-white">
                         {price.toLocaleString()}
                       </span>
                       <span className={`font-body text-xs font-semibold uppercase tracking-wider ${plan.isFeatured ? "text-white/80" : "text-white/50"}`}>
@@ -179,12 +184,12 @@ export default function Packages() {
                     </p>
 
                     {/* Divider */}
-                    <div className={`h-px w-full my-7 ${plan.isFeatured ? "bg-white/20" : "bg-white/10"}`} />
+                    <div className={`h-px w-full my-6 sm:my-7 ${plan.isFeatured ? "bg-white/20" : "bg-white/10"}`} />
 
                     {/* Features */}
-                    <ul className="space-y-3.5 mb-8">
+                    <ul className="space-y-3 sm:space-y-3.5 mb-7 sm:mb-8">
                       {plan.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
+                        <li key={idx} className="flex items-start gap-2.5 sm:gap-3">
                           <Check
                             size={15}
                             className={`flex-shrink-0 mt-0.5 ${
@@ -206,7 +211,7 @@ export default function Packages() {
                   {/* Button */}
                   <button
                     onClick={() => handleScroll("#contact")}
-                    className={`w-full py-4 rounded-md font-body text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer ${
+                    className={`w-full py-3.5 sm:py-4 rounded-md font-body text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer ${
                       plan.isFeatured
                         ? "bg-white text-[#0A0A0A] hover:bg-white/90 shadow-xl"
                         : "bg-white/[0.05] border border-white/20 text-white hover:border-primary hover:bg-primary"
