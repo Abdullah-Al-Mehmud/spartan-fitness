@@ -640,3 +640,114 @@ body {
     filter: none !important;
   }
 }
+
+
+
+/* ──────────────────────────────────────────────────────────────
+   Hero – responsive overrides
+   Paste at the END of your globals.css (replace the previous block).
+   Everything is inside max-width: 1023px, so desktop (lg+) is untouched.
+   ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1023px) {
+  /* Stop any blurred glow / ghost text from creating sideways scroll */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  /* Model fills the top stage (.hero-model-stage in the JSX) */
+  .hero-model-container {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+  }
+
+  .hero-model-image {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 560px;
+    margin-inline: auto;
+  }
+
+  /* Desktop ghost text is replaced by a mobile one rendered in the JSX */
+  .hero-ghost-text {
+    display: none !important;
+  }
+
+  /* Mobile ghost text — Bold Vanished Text (matching large device) */
+  .hero-mobile-ghost-text {
+    top: 10.5svh;
+  }
+
+  .hero-mobile-ghost-line {
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Poppins,
+      sans-serif;
+    font-size: clamp(4.25rem, 21.5vw, 7.25rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    display: block;
+    text-align: center;
+    white-space: nowrap;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.12) 34%,
+      rgba(255, 255, 255, 0.02) 62%,
+      transparent 85%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    animation: hero-ghost-rise 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .hero-mobile-ghost-line-2 {
+    animation-delay: 0.12s;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.07) 32%,
+      rgba(255, 255, 255, 0.01) 56%,
+      transparent 78%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Compact glass cards that overlap the bottom of the model */
+  .hero-glass-card {
+    padding: 0.85rem 1rem !important;
+    min-height: 92px;
+  }
+
+  .hero-glow-top,
+  .hero-glow-bottom {
+    max-width: 100vw;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .hero-glass-card {
+    padding: 1.1rem 1.25rem !important;
+    min-height: 140px;
+  }
+}
+
+/* Short landscape phones: let the stage use the full height */
+@media (max-width: 1023px) and (orientation: landscape) and (max-height: 500px) {
+  .hero-model-stage {
+    height: 100% !important;
+  }
+}
