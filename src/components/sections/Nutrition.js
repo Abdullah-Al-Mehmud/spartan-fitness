@@ -85,7 +85,7 @@ export default function Nutrition() {
               aria-pressed={activePlanId === plan.id}
               className={`inline-flex items-center gap-3 px-5 py-3 rounded-full font-body text-[11px] font-semibold uppercase tracking-[0.14em] transition-all duration-300 border cursor-pointer ${
                 activePlanId === plan.id
-                  ? "bg-primary border-primary text-white shadow-[0_10px_40px_-10px_rgba(220,38,38,0.7)]"
+                  ? "bg-primary border-primary text-white"
                   : "border-white/10 bg-white/[0.03] text-white/60 hover:text-white hover:border-white/30"
               }`}
             >

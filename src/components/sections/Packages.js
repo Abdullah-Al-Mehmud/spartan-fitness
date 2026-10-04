@@ -104,7 +104,7 @@ export default function Packages() {
               {billingCycle === "monthly" && (
                 <motion.div
                   layoutId="activeBilling"
-                  className="absolute inset-0 bg-primary rounded-full -z-10 shadow-[0_0_15px_rgba(220,38,38,0.5)]"
+                  className="absolute inset-0 bg-primary rounded-full -z-10"
                 />
               )}
               Monthly
@@ -118,7 +118,7 @@ export default function Packages() {
               {billingCycle === "yearly" && (
                 <motion.div
                   layoutId="activeBilling"
-                  className="absolute inset-0 bg-primary rounded-full -z-10 shadow-[0_0_15px_rgba(220,38,38,0.5)]"
+                  className="absolute inset-0 bg-primary rounded-full -z-10"
                 />
               )}
               Yearly
@@ -213,7 +213,7 @@ export default function Packages() {
                     onClick={() => handleScroll("#contact")}
                     className={`w-full py-3.5 sm:py-4 rounded-md font-body text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer ${
                       plan.isFeatured
-                        ? "bg-white text-[#0A0A0A] hover:bg-white/90 shadow-xl"
+                        ? "bg-white text-[#0A0A0A] hover:bg-white/90"
                         : "bg-white/[0.05] border border-white/20 text-white hover:border-primary hover:bg-primary"
                     }`}
                   >

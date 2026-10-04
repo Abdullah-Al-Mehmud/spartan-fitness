@@ -128,7 +128,7 @@ export default function Transformations() {
                       onClick={() => toggleState(story.id, "before")}
                       className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-body font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                         activeStates[story.id] === "before"
-                          ? "bg-primary text-white shadow-[0_0_15px_rgba(220,38,38,0.5)]"
+                          ? "bg-primary text-white"
                           : "text-white/60 hover:text-white"
                       }`}
                     >
@@ -138,7 +138,7 @@ export default function Transformations() {
                       onClick={() => toggleState(story.id, "after")}
                       className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-body font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                         activeStates[story.id] === "after"
-                          ? "bg-primary text-white shadow-[0_0_15px_rgba(220,38,38,0.5)]"
+                          ? "bg-primary text-white"
                           : "text-white/60 hover:text-white"
                       }`}
                     >

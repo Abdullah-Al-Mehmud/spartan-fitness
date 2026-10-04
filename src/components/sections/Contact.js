@@ -98,7 +98,7 @@ export default function Contact() {
               aria-pressed={activeBranchId === b.id}
               className={`flex-1 sm:flex-initial px-4 sm:px-6 py-2.5 rounded-full font-body text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] text-center transition-all duration-300 border cursor-pointer ${
                 activeBranchId === b.id
-                  ? "bg-primary text-white border-primary shadow-[0_0_20px_rgba(220,38,38,0.45)]"
+                  ? "bg-primary text-white border-primary"
                   : "bg-white/[0.04] border-white/10 text-white/60 hover:text-white hover:border-white/20"
               }`}
             >
@@ -271,7 +271,7 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 sm:py-4 rounded-md font-body text-xs font-bold uppercase tracking-[0.2em] bg-primary text-white hover:bg-primary-dark transition-all duration-300 shadow-[0_12px_30px_rgba(220,38,38,0.4)] hover:shadow-[0_15px_35px_rgba(220,38,38,0.6)] cursor-pointer flex items-center justify-center gap-2 mt-3 sm:mt-4"
+                      className="w-full py-3.5 sm:py-4 rounded-md font-body text-xs font-bold uppercase tracking-[0.2em] bg-primary text-white hover:bg-primary-dark transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 mt-3 sm:mt-4"
                     >
                       <span>{isSubmitting ? "Sending..." : "Submit Inquiry"}</span>
                       <Send size={14} />

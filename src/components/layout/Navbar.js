@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const navLinks = [
   { label: "Home", href: "#hero", id: "hero" },
@@ -41,7 +42,7 @@ export default function Navbar() {
           }
         });
       },
-      { threshold: 0.25, rootMargin: "-80px 0px -50% 0px" }
+      { threshold: 0.25, rootMargin: "-80px 0px -50% 0px" },
     );
 
     navLinks.forEach((link) => {
@@ -70,8 +71,7 @@ export default function Navbar() {
           scrolled
             ? "bg-[#0A0A0A]/95 backdrop-blur-xl border-b border-white/10 py-3 shadow-2xl"
             : "bg-transparent border-b border-transparent py-4 sm:py-5"
-        }`}
-      >
+        }`}>
         <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -81,14 +81,15 @@ export default function Navbar() {
                 e.preventDefault();
                 handleNav("#hero");
               }}
-              className="font-heading text-xl sm:text-2xl lg:text-3xl tracking-tighter uppercase text-white focus:outline-none flex items-center gap-0.5 group"
-            >
-              <span className="text-primary font-bold transition-transform duration-300 group-hover:scale-105">
-                SPARTAN
-              </span>
-              <span className="text-white/60 text-base sm:text-lg lg:text-xl ml-1 font-body font-light tracking-wider">
-                FITNESS
-              </span>
+              className="font-heading text-xl sm:text-2xl lg:text-3xl tracking-tighter uppercase text-white focus:outline-none flex items-center gap-2 sm:gap-2.5 group">
+              <Image
+                src="/logo.png"
+                alt="Spartan Fitness Logo"
+                width={48}
+                height={40}
+                className="w-auto h-9 sm:h-10 lg:h-11 object-contain transition-transform duration-300 group-hover:scale-105"
+                priority
+              />
             </a>
 
             {/* Desktop Navigation */}
@@ -104,19 +105,20 @@ export default function Navbar() {
                       handleNav(link.href);
                     }}
                     className={`font-body text-[11px] font-medium uppercase tracking-[0.2em] transition-all duration-300 relative py-2 ${
-                      isActive
-                        ? "text-white"
-                        : "text-white/50 hover:text-white"
-                    }`}
-                  >
+                      isActive ? "text-white" : "text-white/50 hover:text-white"
+                    }`}>
                     {link.label}
 
                     {/* Active dot indicator */}
                     {isActive && (
                       <motion.span
                         layoutId="activeNavDot"
-                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(220,38,38,0.8)]"
-                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_rgba(208,59,59,0.4)]"
+                        transition={{
+                          type: "spring",
+                          stiffness: 350,
+                          damping: 30,
+                        }}
                       />
                     )}
                   </a>
@@ -128,8 +130,7 @@ export default function Navbar() {
             <div className="hidden lg:block">
               <button
                 onClick={() => handleNav("#contact")}
-                className="font-body text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-md bg-primary text-white hover:bg-primary-dark transition-all duration-300 shadow-md shadow-primary/20 cursor-pointer"
-              >
+                className="font-body text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-md bg-primary text-white hover:bg-primary-dark transition-all duration-300 cursor-pointer">
                 Book Now
               </button>
             </div>
@@ -138,8 +139,7 @@ export default function Navbar() {
             <button
               className="lg:hidden p-2 text-white hover:text-primary focus:outline-none transition-colors duration-300 cursor-pointer"
               onClick={() => setMobileOpen(true)}
-              aria-label="Open menu"
-            >
+              aria-label="Open menu">
               <Menu size={24} />
             </button>
           </div>
@@ -153,20 +153,30 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#0A0A0A]/98 backdrop-blur-2xl lg:hidden flex flex-col justify-between p-6 overflow-y-auto"
-          >
+            className="fixed inset-0 z-50 bg-[#0A0A0A]/98 backdrop-blur-2xl lg:hidden flex flex-col justify-between p-6 overflow-y-auto">
             <div>
               {/* Header */}
               <div className="flex items-center justify-between h-14 sm:h-16 border-b border-white/10 pb-2">
-                <span className="font-heading text-2xl sm:text-3xl tracking-tighter uppercase text-white">
-                  <span className="text-primary font-bold">SPARTAN</span>
-                  <span className="text-white/60 text-base sm:text-lg ml-1 font-body font-light">FITNESS</span>
-                </span>
+                <a
+                  href="#hero"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNav("#hero");
+                    setMobileOpen(false);
+                  }}
+                  className="flex items-center gap-2">
+                  <Image
+                    src="/logo.png"
+                    alt="Spartan Fitness Logo"
+                    width={40}
+                    height={32}
+                    className="w-auto h-8 sm:h-9 object-contain"
+                  />
+                </a>
                 <button
                   onClick={() => setMobileOpen(false)}
                   className="p-2 text-white hover:text-primary focus:outline-none cursor-pointer"
-                  aria-label="Close menu"
-                >
+                  aria-label="Close menu">
                   <X size={26} />
                 </button>
               </div>
@@ -187,9 +197,10 @@ export default function Navbar() {
                         handleNav(link.href);
                       }}
                       className={`font-heading text-2xl sm:text-3xl uppercase tracking-wider transition-colors duration-200 ${
-                        isActive ? "text-primary font-bold" : "text-white/80 hover:text-primary"
-                      }`}
-                    >
+                        isActive
+                          ? "text-primary font-bold"
+                          : "text-white/80 hover:text-primary"
+                      }`}>
                       {link.label}
                     </motion.a>
                   );
@@ -200,9 +211,8 @@ export default function Navbar() {
             {/* Bottom Button */}
             <div className="my-8 flex flex-col items-center">
               <button
-                className="w-full max-w-xs bg-primary text-white font-body font-semibold py-3.5 rounded-md hover:bg-primary-dark transition-all duration-300 shadow-lg shadow-primary/30 uppercase tracking-widest text-xs cursor-pointer"
-                onClick={() => handleNav("#contact")}
-              >
+                className="w-full max-w-xs bg-primary text-white font-body font-semibold py-3.5 rounded-md hover:bg-primary-dark transition-all duration-300 uppercase tracking-widest text-xs cursor-pointer"
+                onClick={() => handleNav("#contact")}>
                 Book Free Session
               </button>
               <p className="font-body text-[11px] text-white/40 mt-5 uppercase tracking-[0.2em]">

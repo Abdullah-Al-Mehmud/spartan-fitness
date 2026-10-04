@@ -35,7 +35,7 @@ export default function CTA() {
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] max-w-[1200px] aspect-[2/1] pointer-events-none -z-10"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 50%, rgba(220,38,38,0.45) 0%, rgba(185,28,28,0.2) 35%, transparent 70%)",
+            "radial-gradient(ellipse at 50% 50%, rgba(208,59,59,0.22) 0%, rgba(171,45,45,0.08) 35%, transparent 70%)",
           filter: "blur(60px)",
         }}
       />
@@ -45,8 +45,8 @@ export default function CTA() {
         aria-hidden
         className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[70vw] max-w-[800px] h-px pointer-events-none"
         style={{
-          background: "linear-gradient(90deg, transparent, rgba(220,38,38,0.8), transparent)",
-          boxShadow: "0 0 40px 8px rgba(220,38,38,0.4)",
+          background: "linear-gradient(90deg, transparent, rgba(208,59,59,0.4), transparent)",
+          boxShadow: "0 0 25px 4px rgba(208,59,59,0.18)",
         }}
       />
 
@@ -82,7 +82,7 @@ export default function CTA() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full sm:w-auto">
             <button
               onClick={() => handleScroll("#contact")}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-body text-xs font-bold uppercase tracking-[0.2em] px-8 sm:px-9 py-3.5 sm:py-4 rounded-md bg-primary text-white hover:bg-primary-dark transition-all duration-300 shadow-[0_15px_35px_rgba(220,38,38,0.5)] hover:scale-105 cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-body text-xs font-bold uppercase tracking-[0.2em] px-8 sm:px-9 py-3.5 sm:py-4 rounded-md bg-primary text-white hover:bg-primary-dark transition-all duration-300 hover:scale-105 cursor-pointer"
             >
               <span>Join Now</span>
               <ArrowRight size={15} />

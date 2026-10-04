@@ -1,11 +1,21 @@
 "use client";
 
+import { Check, Send } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
-import { Send, Check } from "lucide-react";
 
 // Custom SVG Social Icons
 const Instagram = (props) => (
-  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+  <svg
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    stroke="currentColor"
+    strokeWidth="2"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}>
     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -13,13 +23,31 @@ const Instagram = (props) => (
 );
 
 const Facebook = (props) => (
-  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+  <svg
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    stroke="currentColor"
+    strokeWidth="2"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}>
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
   </svg>
 );
 
 const Twitter = (props) => (
-  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+  <svg
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    stroke="currentColor"
+    strokeWidth="2"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}>
     <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
   </svg>
 );
@@ -88,13 +116,19 @@ export default function Footer() {
                 e.preventDefault();
                 handleNav("#hero");
               }}
-              className="font-heading text-2xl sm:text-3xl tracking-tighter uppercase focus:outline-none flex items-center gap-0.5"
-            >
-              <span className="text-primary font-bold">SPARTAN</span>
-              <span className="text-white/60 text-lg ml-1 font-body font-light">FITNESS</span>
+              className="font-heading text-2xl sm:text-3xl tracking-tighter uppercase focus:outline-none flex items-center gap-2.5 group">
+              <Image
+                src="/logo.png"
+                alt="Spartan Fitness Logo"
+                width={48}
+                height={40}
+                className="w-auto h-10 sm:h-11 object-contain transition-transform duration-300 group-hover:scale-105"
+              />
             </a>
             <p className="font-body text-xs text-white/55 mt-3 sm:mt-4 leading-relaxed max-w-sm">
-              Spartan Fitness is one of the leading premium fitness centers in Dhaka. We provide world-class gym equipment, certified trainers, and personalized coaching to help you build raw strength.
+              Spartan Fitness is one of the leading premium fitness centers in
+              Dhaka. We provide world-class gym equipment, certified trainers,
+              and personalized coaching to help you build raw strength.
             </p>
             <div className="flex items-center gap-3 mt-5 sm:mt-6">
               {socialLinks.map((s, idx) => {
@@ -106,8 +140,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-9 h-9 rounded-xl bg-white/5 hover:bg-primary border border-white/10 hover:border-primary flex items-center justify-center text-white/60 hover:text-white transition-all duration-300"
-                    aria-label={s.label}
-                  >
+                    aria-label={s.label}>
                     <Icon />
                   </a>
                 );
@@ -129,8 +162,7 @@ export default function Footer() {
                       e.preventDefault();
                       handleNav(link.href);
                     }}
-                    className="font-body text-xs text-white/50 hover:text-primary transition-colors duration-200"
-                  >
+                    className="font-body text-xs text-white/50 hover:text-primary transition-colors duration-200">
                     {link.label}
                   </a>
                 </li>
@@ -152,8 +184,7 @@ export default function Footer() {
                       e.preventDefault();
                       handleNav(link.href);
                     }}
-                    className="font-body text-xs text-white/50 hover:text-primary transition-colors duration-200"
-                  >
+                    className="font-body text-xs text-white/50 hover:text-primary transition-colors duration-200">
                     {link.label}
                   </a>
                 </li>
@@ -165,8 +196,12 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2">
               {branchesList.map((branch, idx) => (
-                <li key={idx} className="font-body text-[11px] text-white/40 leading-relaxed">
-                  <span className="font-semibold text-white/60 block">{branch.name}</span>
+                <li
+                  key={idx}
+                  className="font-body text-[11px] text-white/40 leading-relaxed">
+                  <span className="font-semibold text-white/60 block">
+                    {branch.name}
+                  </span>
                   Phone: {branch.phone}
                 </li>
               ))}
@@ -179,7 +214,8 @@ export default function Footer() {
               Newsletter
             </h4>
             <p className="font-body text-xs text-white/50 mb-4 leading-relaxed">
-              Subscribe to get fitness tips, nutritional guides, and exclusive membership offers in Dhaka.
+              Subscribe to get fitness tips, nutritional guides, and exclusive
+              membership offers in Dhaka.
             </p>
 
             {subscribed ? (
@@ -188,7 +224,9 @@ export default function Footer() {
                 <span>Thank you! You are subscribed.</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex flex-col xs:flex-row gap-2">
+              <form
+                onSubmit={handleSubscribe}
+                className="flex flex-col xs:flex-row gap-2">
                 <input
                   type="email"
                   value={email}
@@ -200,8 +238,7 @@ export default function Footer() {
                 <button
                   type="submit"
                   className="bg-primary text-white p-3 rounded-xl hover:bg-primary-dark transition-colors duration-300 flex-shrink-0 flex items-center justify-center cursor-pointer"
-                  aria-label="Subscribe"
-                >
+                  aria-label="Subscribe">
                   <Send size={14} />
                 </button>
               </form>
@@ -214,7 +251,8 @@ export default function Footer() {
       <div className="border-t border-white/5 py-5 sm:py-6">
         <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <p className="font-body text-[10px] text-white/30 uppercase tracking-widest">
-            &copy; {new Date().getFullYear()} Spartan Fitness. All rights reserved.
+            &copy; {new Date().getFullYear()} Spartan Fitness. All rights
+            reserved.
           </p>
           <div className="flex gap-5 sm:gap-6">
             <a
@@ -223,8 +261,7 @@ export default function Footer() {
                 e.preventDefault();
                 handleNav("#pricing");
               }}
-              className="font-body text-[10px] text-white/30 hover:text-primary uppercase tracking-widest transition-colors"
-            >
+              className="font-body text-[10px] text-white/30 hover:text-primary uppercase tracking-widest transition-colors">
               Privacy Policy
             </a>
             <a
@@ -233,8 +270,7 @@ export default function Footer() {
                 e.preventDefault();
                 handleNav("#pricing");
               }}
-              className="font-body text-[10px] text-white/30 hover:text-primary uppercase tracking-widest transition-colors"
-            >
+              className="font-body text-[10px] text-white/30 hover:text-primary uppercase tracking-widest transition-colors">
               Terms of Service
             </a>
           </div>

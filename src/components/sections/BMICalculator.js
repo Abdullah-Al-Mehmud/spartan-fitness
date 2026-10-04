@@ -98,7 +98,7 @@ export default function BMICalculator() {
 
   const tabBtn = (active) =>
     `flex-1 py-2.5 rounded-lg font-body text-[11px] font-bold uppercase tracking-[0.15em] transition-all cursor-pointer ${
-      active ? "bg-dark text-white shadow-sm" : "text-dark/55 hover:text-dark"
+      active ? "bg-dark text-white" : "text-dark/55 hover:text-dark"
     }`;
 
   return (
@@ -198,7 +198,7 @@ export default function BMICalculator() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-5 relative overflow-hidden rounded-[1.75rem] bg-dark text-white p-6 sm:p-10 flex flex-col justify-between shadow-[0_30px_60px_-25px_rgba(220,38,38,0.35)] border border-white/5"
+            className="lg:col-span-5 relative overflow-hidden rounded-[1.75rem] bg-dark text-white p-6 sm:p-10 flex flex-col justify-between shadow-[0_20px_45px_-20px_rgba(208,59,59,0.2)] border border-white/5"
           >
             <div className="pointer-events-none absolute -top-24 -right-24 w-80 h-80 rounded-full bg-primary/25 blur-[90px]" aria-hidden />
             <div className="relative h-full">

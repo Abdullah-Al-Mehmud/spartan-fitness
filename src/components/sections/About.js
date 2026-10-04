@@ -231,7 +231,7 @@ export default function About() {
                     {active && (
                       <motion.div
                         layoutId="activeAboutTab"
-                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary shadow-[0_0_10px_rgba(220,38,38,0.8)]"
+                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary shadow-[0_0_6px_rgba(208,59,59,0.35)]"
                       />
                     )}
                   </button>

@@ -106,14 +106,14 @@ export default function Reviews() {
           <div className="flex items-center gap-2.5 sm:gap-3 self-start sm:self-auto">
             <button
               onClick={scrollPrev}
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/15 bg-white/[0.04] text-white flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 cursor-pointer shadow-lg"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/15 bg-white/[0.04] text-white flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 cursor-pointer"
               aria-label="Previous testimonial"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={scrollNext}
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/15 bg-white/[0.04] text-white flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 cursor-pointer shadow-lg"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/15 bg-white/[0.04] text-white flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 cursor-pointer"
               aria-label="Next testimonial"
             >
               <ChevronRight size={18} />

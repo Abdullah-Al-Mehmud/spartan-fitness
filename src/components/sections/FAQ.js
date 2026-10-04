@@ -104,7 +104,7 @@ export default function FAQ() {
                     <span
                       className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                         isOpen
-                          ? "bg-primary border-primary text-white shadow-[0_0_15px_rgba(220,38,38,0.5)]"
+                          ? "bg-primary border-primary text-white"
                           : "border-white/15 bg-white/[0.04] text-white/60 group-hover:border-primary/50 group-hover:text-white"
                       }`}
                     >

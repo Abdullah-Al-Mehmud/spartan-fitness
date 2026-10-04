@@ -123,7 +123,7 @@ export default function Timeline() {
                   </div>
                 </div>
 
-                <div className="timeline-event-dot absolute left-4 lg:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-white shadow-[0_0_0_6px_rgba(220,38,38,0.12)] z-10 -translate-x-1/2 top-8 lg:top-1/2 lg:-translate-y-1/2 opacity-0" />
+                <div className="timeline-event-dot absolute left-4 lg:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-white shadow-[0_0_0_6px_rgba(208,59,59,0.12)] z-10 -translate-x-1/2 top-8 lg:top-1/2 lg:-translate-y-1/2 opacity-0" />
 
                 <div className="w-full lg:w-[44%] hidden lg:block" />
               </div>

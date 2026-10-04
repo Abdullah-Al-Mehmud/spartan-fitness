@@ -6,9 +6,9 @@
   --font-body: "Poppins", sans-serif;
   --font-sans: "Poppins", sans-serif;
 
-  --color-primary: #dc2626;
-  --color-primary-dark: #b91c1c;
-  --color-primary-light: #fee2e2;
+  --color-primary: #d03b3b;
+  --color-primary-dark: #ab2d2d;
+  --color-primary-light: #e57373;
   --color-offwhite: #f9f9fa;
   --color-surface: #ffffff;
   --color-dark: #0b0b0c;
@@ -54,12 +54,12 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b91c1c;
+  background: #ab2d2d;
 }
 
 /* Selection highlight */
 ::selection {
-  background: #dc2626;
+  background: #d03b3b;
   color: #ffffff;
 }
 
@@ -348,7 +348,7 @@ body {
 .hero-btn-primary:hover {
   background: #b91c1c;
   transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(220, 38, 38, 0.35);
+  box-shadow: none;
 }
 
 .hero-btn-outline {
@@ -779,7 +779,7 @@ body {
 .crimson-ambient-glow {
   position: absolute;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.22) 0%, rgba(185, 28, 28, 0.08) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(208, 59, 59, 0.16) 0%, rgba(171, 45, 45, 0.05) 45%, transparent 70%);
   filter: blur(40px);
   pointer-events: none;
   transform: translateZ(0);
@@ -804,8 +804,8 @@ body {
 
 .spartan-glass-card:hover {
   transform: translateY(-4px) translateZ(0);
-  border-color: rgba(220, 38, 38, 0.4);
-  box-shadow: 0 25px 50px -15px rgba(220, 38, 38, 0.25);
+  border-color: rgba(208, 59, 59, 0.35);
+  box-shadow: 0 20px 40px -15px rgba(208, 59, 59, 0.18);
 }
 
 .spartan-glass-card::before {
@@ -824,11 +824,11 @@ body {
 .spartan-glass-red {
   position: relative;
   border-radius: 24px;
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.92) 0%, rgba(153, 27, 27, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(208, 59, 59, 0.92) 0%, rgba(150, 38, 38, 0.95) 100%);
   border: 1px solid rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 25px 60px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 20px 45px rgba(208, 59, 59, 0.25);
   overflow: hidden;
   transform: translateZ(0);
   color: #ffffff;
