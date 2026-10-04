@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
       className="antialiased"
       style={{ scrollPaddingTop: "80px" }}
     >
-      <body className="bg-offwhite text-dark font-body">
+      <body className="bg-[#0A0A0A] text-white font-body selection:bg-primary selection:text-white">
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

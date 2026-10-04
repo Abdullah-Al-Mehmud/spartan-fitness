@@ -11,7 +11,10 @@ export default function Hero() {
 
   const handleScroll = (href) => {
     const el = document.querySelector(href);
-    if (el) {
+    if (!el) return;
+    if (typeof window !== "undefined" && window.__lenis) {
+      window.__lenis.scrollTo(el, { offset: -80, duration: 1.0 });
+    } else {
       el.scrollIntoView({ behavior: "smooth" });
     }
   };

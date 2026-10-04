@@ -751,3 +751,119 @@ body {
     height: 100% !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════
+   SPARTAN LUXURY DARK DESIGN SYSTEM
+   Mirrors the Hero: #0A0A0A base canvas + deep crimson ambient bloom,
+   frosted glassmorphism cards (24-26px radius), hairline top specular
+   highlights, Poppins uppercase headings, ghost watermarks, and 
+   delicate grid depth so sections never feel like flat black slabs.
+   ═══════════════════════════════════════════════════ */
+
+/* Enable hardware acceleration and eliminate wheel overscroll conflicts */
+html {
+  overscroll-behavior-y: none;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Architectural background dot grid with radial fade */
+.spartan-dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Atmospheric crimson ambient radial glow - optimized GPU layer */
+.crimson-ambient-glow {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.22) 0%, rgba(185, 28, 28, 0.08) 45%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Glass card - Frosted glass matching Hero (hardware accelerated) */
+.spartan-glass-card {
+  position: relative;
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.015) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  transform: translateZ(0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+}
+
+.spartan-glass-card:hover {
+  transform: translateY(-4px) translateZ(0);
+  border-color: rgba(220, 38, 38, 0.4);
+  box-shadow: 0 25px 50px -15px rgba(220, 38, 38, 0.25);
+}
+
+.spartan-glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Radiant red glass card - Matching Hero's satisfaction card */
+.spartan-glass-red {
+  position: relative;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.92) 0%, rgba(153, 27, 27, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 25px 60px rgba(220, 38, 38, 0.4);
+  overflow: hidden;
+  transform: translateZ(0);
+  color: #ffffff;
+}
+
+.spartan-glass-red::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Ghost watermark text behind sections */
+.spartan-watermark {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 900;
+  font-size: clamp(6rem, 16vw, 17rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 75%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}

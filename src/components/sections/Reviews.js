@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { Star, ChevronLeft, ChevronRight, CheckCircle2, Quote } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -53,7 +52,7 @@ const testimonials = [
 export default function Reviews() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
-    align: "center",
+    align: "start",
     skipSnaps: false,
   });
 
@@ -79,132 +78,119 @@ export default function Reviews() {
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
-  const scrollTo = useCallback(
-    (index) => emblaApi?.scrollTo(index),
-    [emblaApi]
-  );
+  const scrollTo = useCallback((index) => emblaApi?.scrollTo(index), [emblaApi]);
 
   return (
-    <section id="reviews" className="bg-offwhite py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        
-        {/* Section Heading */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+    <section id="reviews" className="relative py-28 lg:py-36 bg-[#0A0A0A] overflow-hidden">
+      {/* Ambient background glow */}
+      <div className="crimson-ambient-glow -bottom-36 left-1/2 -translate-x-1/2 w-[800px] h-[500px] opacity-30 pointer-events-none" />
+
+      {/* Grid */}
+      <div className="spartan-dot-grid absolute inset-0 opacity-[0.035] pointer-events-none" />
+
+      {/* Watermark */}
+      <span className="spartan-watermark top-12" aria-hidden>
+        REVIEWS
+      </span>
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+        {/* Header with Navigation Controls */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 lg:mb-20">
           <SectionHeading
             eyebrow="TESTIMONIALS"
             title="Shattering Expectations"
             subtext="Read real growth stories from our dedicated members who transformed their bodies and minds at Spartan Fitness."
-            className="md:max-w-2xl mb-0"
+            className="md:max-w-2xl"
           />
 
-          {/* Slider controls */}
           <div className="flex items-center gap-3 self-start md:self-auto">
             <button
               onClick={scrollPrev}
-              className="bg-white border border-dark/5 text-dark hover:bg-dark hover:text-white rounded-full p-3 shadow-md transition-all duration-300"
+              className="w-12 h-12 rounded-full border border-white/15 bg-white/[0.04] text-white flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 cursor-pointer shadow-lg"
               aria-label="Previous testimonial"
             >
-              <ChevronLeft size={18} />
+              <ChevronLeft size={20} />
             </button>
             <button
               onClick={scrollNext}
-              className="bg-white border border-dark/5 text-dark hover:bg-dark hover:text-white rounded-full p-3 shadow-md transition-all duration-300"
+              className="w-12 h-12 rounded-full border border-white/15 bg-white/[0.04] text-white flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 cursor-pointer shadow-lg"
               aria-label="Next testimonial"
             >
-              <ChevronRight size={18} />
+              <ChevronRight size={20} />
             </button>
           </div>
         </div>
 
-        {/* Carousel Content */}
-        <div className="relative">
-          <div className="overflow-hidden -mx-4" ref={emblaRef}>
-            <div className="flex">
-              {testimonials.map((t) => (
-                <div
-                  key={t.id}
-                  className="min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.33%] px-4"
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-30px" }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    whileHover={{ y: -6 }}
-                    className="bg-white rounded-3xl shadow-xl shadow-dark/[0.02] border border-dark/5 p-8 h-full flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
-                  >
-                    {/* Big quotation mark */}
-                    <div className="absolute right-6 top-6 text-primary/5 pointer-events-none">
-                      <Quote size={56} className="fill-current" />
-                    </div>
-
-                    <div>
-                      {/* Star rating row */}
-                      <div className="flex items-center gap-1 mb-6">
+        {/* Carousel */}
+        <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
+          <div className="flex -ml-6">
+            {testimonials.map((t) => (
+              <div
+                key={t.id}
+                className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] pl-6 min-w-0"
+              >
+                <div className="spartan-glass-card p-8 flex flex-col justify-between h-full min-h-[340px]">
+                  <div>
+                    {/* Stars & Quote Icon */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center gap-1">
                         {[...Array(t.rating)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={14}
-                            className="fill-primary text-primary"
-                          />
+                          <Star key={i} size={15} className="fill-[#F59E0B] text-[#F59E0B]" />
                         ))}
                       </div>
+                      <Quote size={20} className="text-primary/40" />
+                    </div>
 
-                      {/* Quote text */}
-                      <p className="font-body text-sm md:text-base text-dark/80 leading-relaxed italic mb-8 relative z-10">
-                        &ldquo;{t.quote}&rdquo;
+                    {/* Quote text */}
+                    <p className="text-white/80 font-body text-sm leading-relaxed italic">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                  </div>
+
+                  {/* Member info */}
+                  <div className="pt-6 border-t border-white/10 flex items-center gap-3.5 mt-6">
+                    <div className="relative w-11 h-11 rounded-full overflow-hidden border border-white/20 bg-[#1A1A1C]">
+                      <Image
+                        src={t.avatar}
+                        alt={t.name}
+                        fill
+                        sizes="44px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-heading text-sm font-bold uppercase tracking-tight text-white">
+                          {t.name}
+                        </span>
+                        {t.verified && (
+                          <CheckCircle2 size={13} className="text-primary fill-primary/20" />
+                        )}
+                      </div>
+                      <p className="font-body text-xs text-white/50">
+                        {t.role}
                       </p>
                     </div>
-
-                    {/* Member Profile */}
-                    <div className="flex items-center gap-3 pt-6 border-t border-dark/5">
-                      <div className="relative w-12 h-12 rounded-full overflow-hidden bg-dark flex-shrink-0">
-                        <Image
-                          src={t.avatar}
-                          alt={t.name}
-                          fill
-                          className="object-cover"
-                          sizes="48px"
-                        />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-1">
-                          <p className="font-body text-sm font-bold text-dark">
-                            {t.name}
-                          </p>
-                          {t.verified && (
-                            <CheckCircle2 size={13} className="text-emerald-500 fill-emerald-50" />
-                          )}
-                        </div>
-                        <p className="font-body text-[10px] text-muted uppercase tracking-wider font-semibold">
-                          {t.role}
-                        </p>
-                      </div>
-                    </div>
-
-                  </motion.div>
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Carousel indicators */}
-        <div className="flex items-center justify-center gap-2 mt-10">
-          {scrollSnaps.map((_, i) => (
+        {/* Indicator dots */}
+        <div className="flex justify-center items-center gap-2 mt-10">
+          {scrollSnaps.map((_, idx) => (
             <button
-              key={i}
-              onClick={() => scrollTo(i)}
-              className={`h-2 rounded-full transition-all duration-350 ${
-                i === selectedIndex
-                  ? "bg-primary w-8"
-                  : "bg-dark/10 hover:bg-dark/20 w-2"
+              key={idx}
+              onClick={() => scrollTo(idx)}
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                selectedIndex === idx ? "w-8 bg-primary" : "w-2 bg-white/20 hover:bg-white/40"
               }`}
-              aria-label={`Go to testimonial ${i + 1}`}
+              aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
         </div>
-
       </div>
     </section>
   );

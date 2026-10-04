@@ -85,20 +85,22 @@ export default function Timeline() {
   }, []);
 
   return (
-    <section id="timeline" ref={sectionRef} className="bg-white py-20 border-t border-dark/5 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="timeline" ref={sectionRef} className="sp-section sp-white overflow-hidden">
+      <span className="sp-ghost" aria-hidden>SINCE 2016</span>
+      <div className="sp-container">
         <SectionHeading
           eyebrow="OUR JOURNEY"
           title="Spartan Journey Timeline"
           subtext="A visual history of our relentless growth, dedication to excellence, and expanding fitness spaces in Dhaka."
-          className="mb-16 text-center mx-auto"
+          align="center"
+          className="mb-16 lg:mb-24"
         />
 
-        <div className="relative max-w-5xl mx-auto py-8">
-          {/* Vertical Line */}
-          <div className="timeline-line absolute left-4 lg:left-1/2 top-0 bottom-0 w-0.5 bg-dark/10 lg:-translate-x-1/2" />
+        <div className="relative max-w-5xl mx-auto">
+          <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 w-px bg-black/10 lg:-translate-x-1/2" />
+          <div className="timeline-line absolute left-4 lg:left-1/2 top-0 bottom-0 w-px bg-primary lg:-translate-x-1/2" />
 
-          <div className="space-y-12 relative">
+          <div className="space-y-10 lg:space-y-16 relative">
             {timelineEvents.map((ev, idx) => (
               <div
                 key={idx}
@@ -106,26 +108,24 @@ export default function Timeline() {
                   idx % 2 === 1 ? "lg:flex-row-reverse" : ""
                 }`}
               >
-                {/* Card (alternating left or right) */}
-                <div className="timeline-event-card w-full lg:w-[45%] pl-12 lg:pl-0 lg:px-8 opacity-0">
-                  <div className="bg-offwhite rounded-3xl p-6 border border-dark/5 shadow-lg hover:border-primary/20 hover:shadow-primary/5 transition-all duration-300">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="font-heading text-lg text-primary">{ev.year}</span>
-                      <h5 className="font-heading text-sm uppercase tracking-wide text-dark font-bold">
-                        {ev.title}
-                      </h5>
-                    </div>
-                    <p className="font-body text-xs sm:text-sm text-muted leading-relaxed">
+                <div className="timeline-event-card w-full lg:w-[44%] pl-12 lg:pl-0 opacity-0">
+                  <div className="sp-card p-7 lg:p-8 relative overflow-hidden">
+                    <span className="font-heading text-6xl lg:text-7xl leading-none text-primary/90 block">
+                      {ev.year}
+                    </span>
+                    <div className="sp-hairline my-5" />
+                    <h5 className="font-heading text-base uppercase tracking-tight text-current">
+                      {ev.title}
+                    </h5>
+                    <p className="sp-muted font-body text-sm leading-relaxed mt-2">
                       {ev.desc}
                     </p>
                   </div>
                 </div>
 
-                {/* Center Dot */}
-                <div className="timeline-event-dot absolute left-4 lg:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-white shadow-md z-10 lg:-translate-x-1/2 mt-5 lg:mt-0 opacity-0" />
+                <div className="timeline-event-dot absolute left-4 lg:left-1/2 w-4 h-4 rounded-full bg-primary border-4 border-white shadow-[0_0_0_6px_rgba(220,38,38,0.12)] z-10 -translate-x-1/2 top-8 lg:top-1/2 lg:-translate-y-1/2 opacity-0" />
 
-                {/* Spacer Column */}
-                <div className="w-full lg:w-[45%] hidden lg:block" />
+                <div className="w-full lg:w-[44%] hidden lg:block" />
               </div>
             ))}
           </div>
