@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
 import Image from "next/image";
 import { Award, Calendar } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 // Custom SVG Social Icons to prevent package version dependency errors
@@ -88,177 +86,95 @@ const trainers = [
 ];
 
 export default function Coaches() {
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Stagger scroll reveal for coach cards
-      gsap.fromTo(
-        ".coach-card",
-        { opacity: 0, y: 50, filter: "blur(2px)" },
-        {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".coach-card",
-            start: "top 85%",
-          },
-        }
-      );
-
-      // 3D Card tilt effect on mouse hover
-      const cards = document.querySelectorAll(".coach-card");
-      cards.forEach((card) => {
-        card.addEventListener("mousemove", (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const xc = rect.width / 2;
-          const yc = rect.height / 2;
-          const dx = x - xc;
-          const dy = y - yc;
-
-          gsap.to(card, {
-            transformPerspective: 800,
-            rotateY: dx / 12,
-            rotateX: -dy / 12,
-            ease: "power2.out",
-            duration: 0.4,
-          });
-        });
-
-        card.addEventListener("mouseleave", () => {
-          gsap.to(card, {
-            rotateY: 0,
-            rotateX: 0,
-            ease: "power3.out",
-            duration: 0.6,
-          });
-        });
-      });
-    }
-  }, []);
+  const socials = [
+    ["instagram", "Instagram", Instagram],
+    ["facebook", "Facebook", Facebook],
+    ["twitter", "Twitter", Twitter],
+  ];
 
   return (
-    <section id="trainers" className="bg-white py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        
-        {/* Section Heading */}
+    <section id="trainers" className="sp-section sp-light overflow-hidden">
+      <span className="sp-ghost" aria-hidden>COACHES</span>
+      <div className="sp-container">
         <SectionHeading
           eyebrow="EXPERT TEAM"
           title="Meet Our Elite Trainers"
           subtext="Every trainer at Spartan holds industry-leading certifications, years of competitive athletic experience, and is dedicated to your transformation."
-          className="mb-16"
+          className="mb-16 lg:mb-24"
         />
 
-        {/* Trainers Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {trainers.map((trainer) => (
-            <div
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-14 lg:gap-x-8">
+          {trainers.map((trainer, i) => (
+            <ScrollReveal
               key={trainer.id}
-              className="coach-card bg-offwhite rounded-3xl overflow-hidden shadow-lg border border-dark/5 flex flex-col group transition-all duration-300 opacity-0"
-              style={{ transformStyle: "preserve-3d" }}
+              delay={(i % 4) * 0.1}
+              className={i % 2 === 1 ? "lg:mt-14" : ""}
             >
-              
-              {/* Image Container with Hover reveal */}
-              <div className="relative aspect-[4/5] overflow-hidden bg-dark">
-                <Image
-                  src={trainer.image}
-                  alt={trainer.name}
-                  fill
-                  className="object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                />
-                
-                {/* Dynamic Certifications Overlay */}
-                <div className="absolute top-4 left-4 flex flex-wrap gap-1.5 pointer-events-none">
-                  {trainer.certificates.slice(0, 2).map((cert) => (
-                    <span
-                      key={cert}
-                      className="bg-dark/80 backdrop-blur-sm text-white font-body text-[9px] font-bold tracking-wider px-2.5 py-1 rounded-md border border-white/10 uppercase"
-                    >
-                      {cert}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <article className="group flex flex-col h-full">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-dark shadow-[0_24px_50px_-28px_rgba(10,10,10,0.5)]">
+                  <Image
+                    src={trainer.image}
+                    alt={trainer.name}
+                    fill
+                    className="object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/70 via-transparent to-transparent pointer-events-none" />
+                  <span className="absolute top-4 right-4 font-heading text-sm text-white/70">0{i + 1}</span>
 
-              {/* Card Body */}
-              <div className="p-6 flex-1 flex flex-col justify-between" style={{ transform: "translateZ(30px)" }}>
-                <div>
-                  {/* Specialty tag */}
-                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest font-body">
+                  <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-1.5 pointer-events-none">
+                    {trainer.certificates.slice(0, 2).map((cert) => (
+                      <span
+                        key={cert}
+                        className="bg-white/10 backdrop-blur-md text-white font-body text-[9px] font-bold tracking-wider px-2.5 py-1 rounded-full border border-white/20 uppercase"
+                      >
+                        {cert}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-6 flex-1 flex flex-col">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] font-body">
                     {trainer.specialty}
                   </span>
+                  <h3 className="font-heading text-xl uppercase tracking-tight text-current mt-2">{trainer.name}</h3>
+                  <p className="sp-muted font-body text-xs mt-1">{trainer.role}</p>
 
-                  <h3 className="font-heading text-xl uppercase tracking-wider text-dark mt-1">
-                    {trainer.name}
-                  </h3>
-                  
-                  <p className="font-body text-xs text-muted font-medium mt-1">
-                    {trainer.role}
-                  </p>
-                </div>
+                  <div className="sp-hairline my-5" />
 
-                {/* Additional metrics */}
-                <div className="mt-4 pt-4 border-t border-dark/5 space-y-2">
-                  <div className="flex items-center gap-2 text-xs text-muted">
-                    <Calendar size={13} className="text-primary flex-shrink-0" />
-                    <span>{trainer.experience}</span>
+                  <div className="space-y-2.5 font-body text-xs sp-muted">
+                    <div className="flex items-center gap-2">
+                      <Calendar size={13} className="text-primary flex-shrink-0" />
+                      <span>{trainer.experience}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Award size={13} className="text-primary flex-shrink-0 mt-0.5" />
+                      <span>{trainer.certificates.join(", ")}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-muted">
-                    <Award size={13} className="text-primary flex-shrink-0" />
-                    <span className="truncate">{trainer.certificates.join(", ")}</span>
+
+                  <div className="flex items-center gap-4 mt-6">
+                    {socials.map(([key, label, Icon]) =>
+                      trainer.social[key] ? (
+                        <a
+                          key={key}
+                          href={trainer.social[key]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="sp-muted hover:text-primary transition-colors"
+                          aria-label={label}
+                        >
+                          <Icon />
+                        </a>
+                      ) : null
+                    )}
                   </div>
                 </div>
-
-                {/* Social links with transition-up effect */}
-                <div className="flex items-center gap-4 mt-6 overflow-hidden">
-                  {trainer.social.instagram && (
-                    <a
-                      href={trainer.social.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted hover:text-primary transform translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-75"
-                      aria-label="Instagram"
-                    >
-                      <Instagram />
-                    </a>
-                  )}
-                  {trainer.social.facebook && (
-                    <a
-                      href={trainer.social.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted hover:text-primary transform translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100"
-                      aria-label="Facebook"
-                    >
-                      <Facebook />
-                    </a>
-                  )}
-                  {trainer.social.twitter && (
-                    <a
-                      href={trainer.social.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted hover:text-primary transform translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-150"
-                      aria-label="Twitter"
-                    >
-                      <Twitter />
-                    </a>
-                  )}
-                </div>
-
-              </div>
-
-            </div>
+              </article>
+            </ScrollReveal>
           ))}
         </div>
-
       </div>
     </section>
   );

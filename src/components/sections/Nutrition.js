@@ -3,9 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Flame, Target, ArrowRight } from "lucide-react";
+import { Check, Flame, ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
-import Button from "@/components/ui/Button";
 
 const dietPlans = [
   {
@@ -52,10 +51,12 @@ const dietPlans = [
   },
 ];
 
+
 export default function Nutrition() {
   const [activePlanId, setActivePlanId] = useState("fat-loss");
-  
+
   const activePlan = dietPlans.find((plan) => plan.id === activePlanId);
+  const activeIndex = dietPlans.findIndex((plan) => plan.id === activePlanId);
 
   const handleScroll = (href) => {
     const el = document.querySelector(href);
@@ -63,36 +64,39 @@ export default function Nutrition() {
   };
 
   return (
-    <section id="nutrition" className="bg-white py-20">
-      <div className="max-w-7xl mx-auto px-6">
-        
-        {/* Section Heading */}
+    <section id="nutrition" className="sp-section sp-dark">
+      <span className="sp-ghost" aria-hidden>
+        Fuel
+      </span>
+      <div className="sp-container">
         <SectionHeading
           eyebrow="NUTRITION SYSTEM"
           title="Performance Diet Blueprints"
           subtext="Training stimualtes. Nutrition builds. Select your athletic goal to view sample nutrient splits mapped out by our staff nutritionists."
-          className="mb-16"
+          className="mb-12 md:mb-16"
         />
 
-        {/* Dynamic Selector Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-          {dietPlans.map((plan) => (
+        {/* Goal selector */}
+        <div className="flex flex-wrap gap-3 mb-10">
+          {dietPlans.map((plan, i) => (
             <button
               key={plan.id}
               onClick={() => setActivePlanId(plan.id)}
-              className={`px-6 py-3 rounded-2xl font-body text-xs font-bold uppercase tracking-wider transition-all duration-300 border cursor-pointer ${
+              aria-pressed={activePlanId === plan.id}
+              className={`inline-flex items-center gap-3 px-5 py-3 rounded-full font-body text-[11px] font-semibold uppercase tracking-[0.14em] transition-all duration-300 border cursor-pointer ${
                 activePlanId === plan.id
-                  ? "bg-dark text-white border-dark shadow-lg shadow-dark/15"
-                  : "bg-offwhite border-dark/5 text-muted hover:text-dark hover:border-dark/10"
+                  ? "bg-primary border-primary text-white"
+                  : "border-white/10 bg-white/[0.03] text-white/60 hover:text-white hover:border-white/30"
               }`}
             >
+              <span className="opacity-60">0{i + 1}</span>
               {plan.goal}
             </button>
           ))}
         </div>
 
-        {/* Active Content Display Card */}
-        <div className="bg-offwhite rounded-3xl border border-dark/5 p-6 md:p-10 shadow-xl overflow-hidden">
+        {/* Active plan */}
+        <div className="sp-card p-5 sm:p-8 lg:p-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={activePlanId}
@@ -100,98 +104,95 @@ export default function Nutrition() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-stretch"
             >
-              
-              {/* Left Column: Image */}
-              <div className="lg:col-span-5 relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/5] rounded-2xl overflow-hidden bg-dark shadow-md">
+              {/* Image */}
+              <div className="lg:col-span-5 relative aspect-[4/3] lg:aspect-auto lg:min-h-[480px] rounded-2xl overflow-hidden bg-black group">
                 <Image
                   src={activePlan.image}
                   alt={activePlan.mealName}
                   fill
-                  className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-700"
-                  sizes="(max-width: 768px) 100vw, 30vw"
+                  className="object-cover object-center grayscale-[60%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent pointer-events-none" />
-                
-                {/* Image Overlay Tag */}
-                <div className="absolute bottom-4 left-4 bg-dark/80 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/5">
-                  <span className="font-heading text-xs text-white uppercase tracking-wider block">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-md px-4 py-3 rounded-xl border border-white/10">
+                  <span className="font-body text-[10px] font-semibold text-primary-light uppercase tracking-[0.2em] block">
                     Sample Meal
                   </span>
-                  <span className="font-body text-[10px] text-white/50 mt-0.5 block truncate max-w-[200px]">
+                  <span className="font-heading text-sm text-white uppercase tracking-wide mt-0.5 block truncate">
                     {activePlan.mealName}
                   </span>
                 </div>
               </div>
 
-              {/* Right Column: Nutrition Plan Details */}
-              <div className="lg:col-span-7 flex flex-col justify-between h-full">
-                <div>
-                  {/* Plan Tag */}
-                  <span className="font-body text-[10px] font-bold text-primary uppercase tracking-[0.2em]">
+              {/* Details */}
+              <div className="lg:col-span-7 flex flex-col justify-between relative">
+                <span
+                  aria-hidden
+                  className="absolute -top-2 right-0 font-heading text-[5rem] sm:text-[8rem] leading-none text-white/[0.05] select-none pointer-events-none"
+                >
+                  0{activeIndex + 1}
+                </span>
+                <div className="relative">
+                  <span className="font-body text-[11px] font-semibold text-primary-light uppercase tracking-[0.22em]">
                     {activePlan.planName}
                   </span>
 
-                  <h3 className="font-heading text-2xl md:text-3xl uppercase tracking-wider text-dark mt-1">
+                  <h3 className="font-heading text-2xl md:text-4xl uppercase tracking-tight leading-[1.05] mt-3 text-current">
                     {activePlan.mealName}
                   </h3>
 
-                  {/* Macros info */}
-                  <div className="inline-flex items-center gap-2.5 bg-white border border-dark/5 px-4 py-2.5 rounded-2xl shadow-sm mt-4">
-                    <Flame size={14} className="text-primary flex-shrink-0" />
-                    <span className="font-body text-xs font-bold text-dark tracking-wide">
+                  <div className="inline-flex items-start gap-3 border border-white/10 bg-white/[0.04] px-4 py-3 rounded-2xl mt-6">
+                    <Flame size={15} className="text-primary-light flex-shrink-0 mt-0.5" />
+                    <span className="font-body text-xs font-semibold tracking-wide">
                       {activePlan.macros}
                     </span>
                   </div>
 
-                  <p className="font-body text-xs text-muted leading-relaxed mt-6">
-                    <strong>Primary ingredients:</strong> {activePlan.sampleIngredients}.
+                  <p className="sp-muted font-body text-sm leading-relaxed mt-6">
+                    <strong className="text-current font-semibold">Primary ingredients:</strong>{" "}
+                    {activePlan.sampleIngredients}.
                   </p>
 
-                  <hr className="border-dark/5 my-6" />
+                  <div className="sp-hairline my-8" />
 
-                  {/* Plan benefits checklist */}
-                  <h4 className="font-heading text-xs uppercase tracking-[0.15em] text-dark/70 mb-3">
-                    Nutritional Strategy:
+                  <h4 className="font-body text-[11px] font-semibold uppercase tracking-[0.22em] sp-muted mb-5">
+                    Nutritional Strategy
                   </h4>
-                  <div className="space-y-3">
+                  <ul className="space-y-4">
                     {activePlan.benefits.map((benefit, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5">
-                        <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check size={11} className="text-primary" />
-                        </div>
-                        <span className="font-body text-xs md:text-sm text-dark/85 leading-relaxed">
+                      <li key={idx} className="flex items-start gap-4">
+                        <span className="w-6 h-6 rounded-full bg-primary/15 border border-primary/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Check size={12} className="text-primary-light" />
+                        </span>
+                        <span className="font-body text-sm text-white/80 leading-relaxed">
                           {benefit}
                         </span>
-                      </div>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
 
-                {/* Inquire Action Button */}
-                <div className="mt-8 pt-6 border-t border-dark/5 flex flex-col sm:flex-row items-center gap-4">
-                  <Button
+                <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-3">
+                  <button
                     onClick={() => handleScroll("#contact")}
-                    className="w-full sm:w-auto shadow-xl shadow-primary/10"
+                    className="sp-btn sp-btn-primary"
                   >
                     Request Custom Diet
-                  </Button>
+                  </button>
                   <button
                     onClick={() => handleScroll("#pricing")}
-                    className="inline-flex items-center gap-1 font-body text-xs font-bold uppercase tracking-wider text-dark hover:text-primary transition-colors py-3 px-4 cursor-pointer"
+                    className="sp-btn sp-btn-outline"
                   >
                     <span>View Pricing Plans</span>
                     <ArrowRight size={14} />
                   </button>
                 </div>
-
               </div>
-
             </motion.div>
           </AnimatePresence>
         </div>
-
       </div>
     </section>
   );

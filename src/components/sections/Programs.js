@@ -64,13 +64,11 @@ const services = [
 
 const containerVariants = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.06 },
-  },
+  visible: { transition: { staggerChildren: 0.06 } },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 35 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
@@ -85,83 +83,73 @@ export default function Programs() {
   };
 
   return (
-    <section id="programs" className="bg-white py-20">
-      <div className="max-w-7xl mx-auto px-6">
-        
-        {/* Section Heading */}
+    <section id="programs" className="sp-section sp-dark">
+      <span className="sp-ghost" aria-hidden>SERVICES</span>
+      <div className="sp-container">
         <SectionHeading
           eyebrow="OUR SERVICES"
           title="Premium Fitness Services"
           subtext="Spartan Fitness delivers structured, science-backed workout and coaching templates engineered for raw results."
-          className="mb-16"
+          className="mb-16 lg:mb-20"
         />
 
-        {/* Services Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
         >
           {services.map((svc, idx) => (
             <motion.div
               key={idx}
               variants={cardVariants}
-              whileHover={{ y: -6 }}
-              className="bg-offwhite rounded-3xl overflow-hidden shadow-xl border border-dark/5 flex flex-col justify-between group transition-all duration-300"
+              className="sp-card group flex flex-col overflow-hidden"
             >
-              <div>
-                {/* Image Container */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-dark">
-                  <Image
-                    src={svc.image}
-                    alt={svc.title}
-                    fill
-                    className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                    sizes="(max-width: 768px) 100vw, 30vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/30 via-transparent to-transparent pointer-events-none" />
-                </div>
-
-                {/* Content body */}
-                <div className="p-6 md:p-8">
-                  <h3 className="font-heading text-xl uppercase tracking-wider text-dark group-hover:text-primary transition-colors duration-300">
-                    {svc.title}
-                  </h3>
-                  <p className="font-body text-xs text-muted leading-relaxed mt-2 min-h-[48px]">
-                    {svc.desc}
-                  </p>
-
-                  {/* Checklist */}
-                  <ul className="mt-5 space-y-2">
-                    {svc.benefits.map((benefit, bidx) => (
-                      <li key={bidx} className="flex items-center gap-2">
-                        <Check size={12} className="text-primary flex-shrink-0" />
-                        <span className="font-body text-xs text-dark/80">
-                          {benefit}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image
+                  src={svc.image}
+                  alt={svc.title}
+                  fill
+                  className="object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                  sizes="(max-width: 768px) 100vw, 30vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/20 to-transparent pointer-events-none" />
+                <span className="absolute top-4 left-5 font-heading text-4xl leading-none text-white/30">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
               </div>
 
-              {/* Action Footer */}
-              <div className="p-6 md:p-8 pt-0 border-t border-dark/5">
+              <div className="p-6 md:p-8 flex flex-col flex-1">
+                <h3 className="font-heading text-xl uppercase tracking-tight text-current group-hover:text-primary transition-colors duration-300">
+                  {svc.title}
+                </h3>
+                <p className="sp-muted font-body text-sm leading-relaxed mt-3">
+                  {svc.desc}
+                </p>
+
+                <div className="sp-hairline my-6" />
+
+                <ul className="space-y-2.5 flex-1">
+                  {svc.benefits.map((benefit, bidx) => (
+                    <li key={bidx} className="flex items-center gap-3">
+                      <Check size={12} className="text-primary flex-shrink-0" />
+                      <span className="sp-muted font-body text-xs">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+
                 <button
                   onClick={() => handleScroll("#contact")}
-                  className="w-full inline-flex items-center justify-between font-body text-xs font-bold uppercase tracking-wider text-dark hover:text-primary transition-colors group/btn cursor-pointer pt-4"
+                  className="mt-8 w-full inline-flex items-center justify-between font-body text-xs font-bold uppercase tracking-[0.2em] text-current hover:text-primary transition-colors group/btn cursor-pointer"
                 >
                   <span>Book Class</span>
                   <ArrowRight size={14} className="group-hover/btn:translate-x-1.5 transition-transform" />
                 </button>
               </div>
-
             </motion.div>
           ))}
         </motion.div>
-
       </div>
     </section>
   );
