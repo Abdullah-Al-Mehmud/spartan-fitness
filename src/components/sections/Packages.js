@@ -325,21 +325,22 @@ export default function Packages() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className={`relative flex flex-col ${plan.isFeatured ? "md:-mt-3 md:-mb-3" : ""}`}
+                className={`relative flex flex-col ${plan.isFeatured ? "md:-mt-3 md:-mb-3 pt-3" : "pt-3"}`}
               >
+                {plan.isFeatured && (
+                  <div className="absolute top-0 right-6 sm:right-8 z-30 pointer-events-none">
+                    <span className="inline-flex items-center gap-1.5 bg-white text-[#0A0A0A] text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shadow-[0_6px_24px_rgba(0,0,0,0.55)] border border-white/30">
+                      <Sparkles size={12} className="text-primary fill-primary" />
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+
                 <div
                   className={`flex-1 p-6 sm:p-8 lg:p-9 flex flex-col justify-between ${
                     plan.isFeatured ? "spartan-glass-red" : "spartan-glass-card"
                   }`}
                 >
-                  {plan.isFeatured && (
-                    <div className="absolute top-0 right-6 sm:right-8 -translate-y-1/2">
-                      <span className="inline-flex items-center gap-1.5 bg-white text-[#0A0A0A] text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] px-3.5 py-1.5 rounded-full shadow-xl">
-                        <Sparkles size={11} className="text-primary fill-primary" />
-                        Most Popular
-                      </span>
-                    </div>
-                  )}
 
                   <div>
                     {/* Header */}

@@ -2,16 +2,15 @@ import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
-import Transformations from "@/components/sections/Transformations";
 import Packages from "@/components/sections/Packages";
 import PlanComparison from "@/components/sections/PlanComparison";
-import LeadCapture from "@/components/sections/LeadCapture";
 import Gallery from "@/components/sections/Gallery";
 import Reviews from "@/components/sections/Reviews";
 import CTA from "@/components/sections/CTA";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
+import BMICalculator from "@/components/sections/BMICalculator";
 
 // Commented-out sections kept for future use / sub-offerings
 // import PersonalTraining from "@/components/sections/PersonalTraining";
@@ -42,25 +41,13 @@ export default function Home() {
         {/* 5. Key Differentiators & Amenities */}
         <WhyChooseUs />
 
-        {/* Optional Sub-Service (commented out) */}
-        {/* <PersonalTraining /> */}
-
-        {/* 6. Proven Results & Social Proof */}
-        <Transformations />
-
-        {/* Interactive Utility (commented out) */}
-        {/* <BMICalculator /> */}
-
-        {/* 7. Memberships & Pricing Plans */}
+        {/* 6. Memberships & Pricing Plans */}
         <Packages />
 
         {/* 8. Detailed Plan Comparison Table */}
         <PlanComparison />
 
-        {/* NEW SECTION 1: Lead Capture Form (The Conversion Booster) */}
-        <LeadCapture />
-
-        {/* NEW SECTION 2: Premium Gym Gallery (Visual Proof) */}
+        {/* Premium Gym Gallery (Visual Proof) */}
         <Gallery />
 
         {/* 9. Real Member Testimonials (Social Proof) */}

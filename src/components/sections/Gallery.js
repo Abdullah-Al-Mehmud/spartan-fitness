@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Maximize2, X, ChevronLeft, ChevronRight } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -107,19 +109,80 @@ const allGymImages = [
 
 export default function Gallery() {
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const openLightbox = (index) => setLightboxIndex(index);
-  const closeLightbox = () => setLightboxIndex(null);
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
 
-  const showPrev = (e) => {
-    e.stopPropagation();
-    setLightboxIndex((prev) => (prev === 0 ? allGymImages.length - 1 : prev - 1));
-  };
+  const showPrev = useCallback((e) => {
+    if (e) e.stopPropagation();
+    setLightboxIndex((prev) => (prev === null || prev === 0 ? allGymImages.length - 1 : prev - 1));
+  }, []);
 
-  const showNext = (e) => {
-    e.stopPropagation();
-    setLightboxIndex((prev) => (prev === allGymImages.length - 1 ? 0 : prev + 1));
-  };
+  const showNext = useCallback((e) => {
+    if (e) e.stopPropagation();
+    setLightboxIndex((prev) => (prev === null || prev === allGymImages.length - 1 ? 0 : prev + 1));
+  }, []);
+
+  // Close lightbox on route change
+  useEffect(() => {
+    closeLightbox();
+  }, [pathname, closeLightbox]);
+
+  // Close lightbox on custom events or browser back/forward
+  useEffect(() => {
+    const handleClose = () => closeLightbox();
+    window.addEventListener("close-gallery-lightbox", handleClose);
+    window.addEventListener("popstate", handleClose);
+    return () => {
+      window.removeEventListener("close-gallery-lightbox", handleClose);
+      window.removeEventListener("popstate", handleClose);
+    };
+  }, [closeLightbox]);
+
+  // Keyboard navigation & escape listener
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        closeLightbox();
+      } else if (e.key === "ArrowLeft") {
+        showPrev();
+      } else if (e.key === "ArrowRight") {
+        showNext();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIndex, closeLightbox, showPrev, showNext]);
+
+  // Lock background scroll when lightbox is open
+  useEffect(() => {
+    if (lightboxIndex !== null) {
+      document.body.style.overflow = "hidden";
+      if (typeof window !== "undefined" && window.__lenis) {
+        window.__lenis.stop();
+      }
+    } else {
+      document.body.style.overflow = "";
+      if (typeof window !== "undefined" && window.__lenis) {
+        window.__lenis.start();
+      }
+    }
+    return () => {
+      document.body.style.overflow = "";
+      if (typeof window !== "undefined" && window.__lenis) {
+        window.__lenis.start();
+      }
+    };
+  }, [lightboxIndex]);
 
   return (
     <section
@@ -196,87 +259,92 @@ export default function Gallery() {
             </motion.div>
           ))}
         </div>
-
-        {/* Lightbox Modal */}
-        <AnimatePresence>
-          {lightboxIndex !== null && allGymImages[lightboxIndex] && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 cursor-zoom-out"
-              onClick={closeLightbox}
-            >
-              {/* Close Button */}
-              <button
-                onClick={closeLightbox}
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 text-white/80 hover:text-white bg-white/10 hover:bg-primary border border-white/20 rounded-full p-2.5 sm:p-3 transition-all duration-300 cursor-pointer shadow-xl"
-                aria-label="Close Lightbox"
-              >
-                <X size={20} className="sm:w-5 sm:h-5" />
-              </button>
-
-              {/* Prev Button */}
-              <button
-                onClick={showPrev}
-                className="absolute left-2 sm:left-6 z-20 text-white/80 hover:text-white bg-black/70 hover:bg-primary border border-white/20 rounded-full p-2.5 sm:p-3.5 transition-all duration-300 cursor-pointer shadow-xl"
-                aria-label="Previous image"
-              >
-                <ChevronLeft size={22} className="sm:w-6 sm:h-6" />
-              </button>
-
-              {/* Image Container */}
-              <motion.div
-                key={lightboxIndex}
-                initial={{ scale: 0.94, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.94, opacity: 0 }}
-                transition={{ type: "spring", stiffness: 320, damping: 28 }}
-                className="relative max-w-4xl max-h-[82vh] w-full aspect-[16/10] rounded-2xl sm:rounded-3xl overflow-hidden bg-black border border-white/20 shadow-2xl cursor-default"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <Image
-                  src={allGymImages[lightboxIndex].src}
-                  alt={allGymImages[lightboxIndex].title}
-                  fill
-                  className="object-contain"
-                  sizes="100vw"
-                  priority
-                />
-
-                {/* Caption Bar */}
-                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6">
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <span className="inline-block text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.22em] text-primary mb-0.5">
-                        Spartan Fitness Facility
-                      </span>
-                      <h3 className="font-heading text-base sm:text-xl uppercase tracking-tight text-white font-extrabold">
-                        {allGymImages[lightboxIndex].title}
-                      </h3>
-                      <p className="font-body text-xs text-white/70 mt-0.5">
-                        {allGymImages[lightboxIndex].subtitle}
-                      </p>
-                    </div>
-                    <span className="font-body text-[11px] font-semibold text-white/40 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 flex-shrink-0">
-                      {lightboxIndex + 1} / {allGymImages.length}
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Next Button */}
-              <button
-                onClick={showNext}
-                className="absolute right-2 sm:right-6 z-20 text-white/80 hover:text-white bg-black/70 hover:bg-primary border border-white/20 rounded-full p-2.5 sm:p-3.5 transition-all duration-300 cursor-pointer shadow-xl"
-                aria-label="Next image"
-              >
-                <ChevronRight size={22} className="sm:w-6 sm:h-6" />
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
+
+      {/* Lightbox Modal Portalled to document.body so it is never trapped by parent sections */}
+      {mounted &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {lightboxIndex !== null && allGymImages[lightboxIndex] && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-2xl flex items-center justify-center p-3 sm:p-6 cursor-zoom-out"
+                onClick={closeLightbox}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={closeLightbox}
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 z-30 text-white/80 hover:text-white bg-white/10 hover:bg-primary border border-white/20 rounded-full p-2.5 sm:p-3 transition-all duration-300 cursor-pointer shadow-xl"
+                  aria-label="Close Lightbox"
+                >
+                  <X size={20} className="sm:w-5 sm:h-5" />
+                </button>
+
+                {/* Prev Button */}
+                <button
+                  onClick={showPrev}
+                  className="absolute left-2 sm:left-6 z-30 text-white/80 hover:text-white bg-black/70 hover:bg-primary border border-white/20 rounded-full p-2.5 sm:p-3.5 transition-all duration-300 cursor-pointer shadow-xl"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft size={22} className="sm:w-6 sm:h-6" />
+                </button>
+
+                {/* Image Container */}
+                <motion.div
+                  key={lightboxIndex}
+                  initial={{ scale: 0.94, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.94, opacity: 0 }}
+                  transition={{ type: "spring", stiffness: 320, damping: 28 }}
+                  className="relative max-w-4xl max-h-[82vh] w-full aspect-[16/10] rounded-2xl sm:rounded-3xl overflow-hidden bg-black border border-white/20 shadow-2xl cursor-default"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Image
+                    src={allGymImages[lightboxIndex].src}
+                    alt={allGymImages[lightboxIndex].title}
+                    fill
+                    className="object-contain"
+                    sizes="100vw"
+                    priority
+                  />
+
+                  {/* Caption Bar */}
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black via-black/85 to-transparent p-4 sm:p-6">
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <span className="inline-block text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.22em] text-primary mb-0.5">
+                          Spartan Fitness Facility
+                        </span>
+                        <h3 className="font-heading text-base sm:text-xl uppercase tracking-tight text-white font-extrabold">
+                          {allGymImages[lightboxIndex].title}
+                        </h3>
+                        <p className="font-body text-xs text-white/70 mt-0.5">
+                          {allGymImages[lightboxIndex].subtitle}
+                        </p>
+                      </div>
+                      <span className="font-body text-[11px] font-semibold text-white/40 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 flex-shrink-0">
+                        {lightboxIndex + 1} / {allGymImages.length}
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Next Button */}
+                <button
+                  onClick={showNext}
+                  className="absolute right-2 sm:right-6 z-30 text-white/80 hover:text-white bg-black/70 hover:bg-primary border border-white/20 rounded-full p-2.5 sm:p-3.5 transition-all duration-300 cursor-pointer shadow-xl"
+                  aria-label="Next image"
+                >
+                  <ChevronRight size={22} className="sm:w-6 sm:h-6" />
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
     </section>
   );
 }

@@ -1,141 +1,95 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Dumbbell, Target, Award, ArrowUpRight } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  Target,
+  Award,
+  Dumbbell,
+  ArrowRight,
+  ArrowUpRight,
+  CheckCircle2,
+  Flame,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 const tabs = [
   {
     id: "mission",
     label: "Mission",
-    content:
-      "To empower individuals in Dhaka to build strength, discipline, and healthy lifestyles. We provide high-end international facilities, certified trainers, and personalized coaching systems designed to deliver guaranteed results.",
     icon: Target,
+    title: "Empower Every Trainee with Science & Precision",
+    description:
+      "To empower individuals in Dhaka to build sustainable strength, athletic discipline, and long-term health. We provide international-grade biomechanical equipment, certified master trainers, and custom protocols engineered for measurable results.",
+    highlights: [
+      "Custom biomechanical coaching to eliminate injury risk",
+      "Routine metabolic & body composition analysis",
+      "Personalized nutrition tailored to South Asian lifestyles",
+    ],
   },
   {
     id: "vision",
     label: "Vision",
-    content:
-      "To be the gold standard of premium boutique fitness in Bangladesh, expanding our community of relentless individuals and consistently raising the bar for athletic conditioning, training biomechanics, and recovery.",
     icon: Award,
+    title: "The Gold Standard of Strength & Recovery in Bangladesh",
+    description:
+      "To be the benchmark of boutique fitness sanctuaries in Dhaka, expanding an elite community of relentless individuals while consistently advancing equipment ergonomics, coaching standards, and executive wellness facilities.",
+    highlights: [
+      "Continuously upgraded international biomechanic machines",
+      "Executive Finnish steam bath and recovery amenities",
+      "Safe, private training with dedicated female-only hours",
+    ],
   },
   {
     id: "philosophy",
     label: "Philosophy",
-    content:
-      "Discipline is the foundation of success. We reject quick-fixes, fat-loss pills, and unsustainable crash diets. We advocate progressive overload weight training, clean nutritional fueling, and scientific body tracking.",
     icon: Dumbbell,
+    title: "Discipline Over Shortcuts — The Spartan Code",
+    description:
+      "True transformation demands patience and ruthless consistency. We reject dangerous fat-loss pills, crash starvation diets, and viral fitness fads. We advocate progressive overload, mindful movement, and restorative recovery.",
+    highlights: [
+      "Strict adherence to progressive resistance principles",
+      "Whole-food nutritional frameworks — no unsustainable starvation",
+      "A culture of mutual respect, humility, and daily discipline",
+    ],
   },
+];
+
+const highlights = [
+  { label: "Proven Heritage", value: "10+", sub: "Years in Dhaka" },
+  { label: "Master Trainers", value: "15+", sub: "Certified Coaches" },
+  { label: "Prime Arenas", value: "2", sub: "Mirpur 7 & 14" },
 ];
 
 export default function About() {
   const [activeTab, setActiveTab] = useState("mission");
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      gsap.registerPlugin(ScrollTrigger);
+  const currentTab = tabs.find((t) => t.id === activeTab) || tabs[0];
 
-      // Collage mask reveals
-      gsap.fromTo(
-        ".about-img-main",
-        { clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)", scale: 1.08 },
-        {
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-          scale: 1,
-          duration: 1.2,
-          ease: "power3.inOut",
-          scrollTrigger: {
-            trigger: ".about-img-main",
-            start: "top 85%",
-          },
-        }
-      );
-
-      gsap.fromTo(
-        ".about-img-tr",
-        { clipPath: "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)", scale: 1.08 },
-        {
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-          scale: 1,
-          duration: 1.2,
-          ease: "power3.inOut",
-          scrollTrigger: {
-            trigger: ".about-img-tr",
-            start: "top 85%",
-          },
-        }
-      );
-
-      gsap.fromTo(
-        ".about-img-bl",
-        { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)", scale: 1.08 },
-        {
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-          scale: 1,
-          duration: 1.2,
-          ease: "power3.inOut",
-          scrollTrigger: {
-            trigger: ".about-img-bl",
-            start: "top 85%",
-          },
-        }
-      );
-
-      // Responsive Parallax collage movements
-      gsap.to(".about-img-tr", {
-        yPercent: -10,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#about",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 0.3,
-        },
-      });
-
-      gsap.to(".about-img-bl", {
-        yPercent: 8,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#about",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 0.3,
-        },
-      });
-
-      // Experience badge scale-in
-      gsap.fromTo(
-        ".about-badge",
-        { scale: 0.85, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.8,
-          ease: "back.out(1.5)",
-          scrollTrigger: {
-            trigger: ".about-badge",
-            start: "top 90%",
-          },
-        }
-      );
+  const handleScroll = (href) => {
+    const el = document.querySelector(href);
+    if (!el) return;
+    if (typeof window !== "undefined" && window.__lenis) {
+      window.__lenis.scrollTo(el, { offset: -80, duration: 1.0 });
+    } else {
+      el.scrollIntoView({ behavior: "smooth" });
     }
-  }, []);
+  };
 
   return (
-    <section id="about" className="relative py-16 sm:py-24 lg:py-36 bg-[#0A0A0A] overflow-hidden">
-      {/* Background atmospheric ambient red glow */}
-      <div className="crimson-ambient-glow -top-32 -left-32 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] opacity-40 pointer-events-none" />
-      <div className="crimson-ambient-glow -bottom-32 -right-32 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] opacity-25 pointer-events-none" />
+    <section id="about" className="relative py-20 sm:py-28 lg:py-36 bg-[#0A0A0A] overflow-hidden">
+      {/* Background atmospheric ambient red glows */}
+      <div className="crimson-ambient-glow -top-36 -left-36 w-[400px] sm:w-[650px] h-[400px] sm:h-[650px] opacity-35 pointer-events-none" />
+      <div className="crimson-ambient-glow -bottom-36 -right-36 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] opacity-25 pointer-events-none" />
 
-      {/* Subtle architectural dot grid */}
+      {/* Architectural dot grid */}
       <div className="spartan-dot-grid absolute inset-0 opacity-[0.035] pointer-events-none" />
 
-      {/* Watermark text */}
+      {/* Background Watermark */}
       <span className="spartan-watermark top-8 sm:top-12" aria-hidden>
         SPARTAN
       </span>
@@ -144,131 +98,250 @@ export default function About() {
         <SectionHeading
           eyebrow="WHO WE ARE"
           title="About Spartan Fitness"
-          subtext="Dhaka's premier luxury fitness center. We build custom strength training programs, bodybuilding frameworks, and weight loss blueprints that deliver results."
-          className="mb-12 sm:mb-16 lg:mb-24"
+          subtext="Dhaka's premier luxury fitness sanctuary. Custom strength training, athletic conditioning, and executive recovery tailored for high performers."
+          className="mb-12 sm:mb-16 lg:mb-20"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 lg:gap-20 items-center">
-          {/* Left Column: Image Collage */}
-          <div className="lg:col-span-6 relative h-[340px] xs:h-[390px] sm:h-[460px] lg:h-[520px] w-full">
-            {/* Ambient soft glow directly behind photo cluster */}
-            <div className="absolute inset-0 bg-primary/10 rounded-3xl blur-3xl -z-10 pointer-events-none" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 xl:gap-20 items-center">
+          {/* Left Column: Premium Layered Visual Showcase */}
+          <div className="lg:col-span-6 relative">
+            {/* Ambient backlight glow */}
+            <div className="absolute -inset-4 bg-primary/15 rounded-3xl blur-3xl -z-10 pointer-events-none" />
 
-            {/* Main large image */}
-            <div className="about-img-main absolute top-0 left-0 w-[64%] h-[76%] rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-[#121214]">
-              <Image
-                src="/128868841_668587480486581_6912739221833064982_n.jpg"
-                alt="Spartan Fitness main training arena"
-                fill
-                sizes="(max-width: 640px) 65vw, (max-width: 1024px) 50vw, 30vw"
-                className="object-cover transition-all duration-700 hover:scale-105"
-              />
-            </div>
+            <div className="relative h-[420px] xs:h-[460px] sm:h-[520px] md:h-[540px] w-full">
+              {/* Main Anchor Card: Primary Arena Photo */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="absolute top-0 left-0 w-[72%] h-[74%] rounded-3xl overflow-hidden border border-white/15 bg-[#111114] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] group"
+              >
+                <Image
+                  src="/128868841_668587480486581_6912739221833064982_n.jpg"
+                  alt="Spartan Fitness state-of-the-art training arena"
+                  fill
+                  sizes="(max-width: 640px) 75vw, (max-width: 1024px) 50vw, 35vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 
-            {/* Overlapping top-right image */}
-            <div className="about-img-tr absolute top-6 sm:top-10 right-0 w-[42%] h-[48%] rounded-2xl overflow-hidden border border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.9)] bg-[#121214]">
-              <Image
-                src="/485309162_1051877876962518_2632745172042704375_n.jpg"
-                alt="Spartan Fitness coaches with championship trophy"
-                fill
-                sizes="(max-width: 640px) 45vw, (max-width: 1024px) 35vw, 20vw"
-                className="object-cover transition-all duration-700 hover:scale-105"
-              />
-            </div>
+                {/* Micro Location Pill */}
+                <div className="absolute top-3.5 left-3.5 px-3 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/15 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="font-body text-[10px] font-semibold uppercase tracking-wider text-white/90">
+                    Mirpur 7 & 14 • Dhaka
+                  </span>
+                </div>
 
-            {/* Overlapping bottom-left image */}
-            <div className="about-img-bl absolute bottom-0 right-[16%] w-[48%] h-[40%] rounded-2xl overflow-hidden border border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.9)] bg-[#121214]">
-              <Image
-                src="/482207656_1042939214523051_8760506858185054018_n.jpg"
-                alt="Spartan dumbbell training section"
-                fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 22vw"
-                className="object-cover transition-all duration-700 hover:scale-105"
-              />
-            </div>
+                {/* Bottom title inside main frame */}
+                <div className="absolute bottom-3.5 left-4 right-4">
+                  <p className="font-heading text-xs uppercase tracking-wider font-bold text-white">
+                    Main Workout Floor
+                  </p>
+                  <p className="font-body text-[10px] text-white/60">
+                    High-end international equipment & air-conditioned zone
+                  </p>
+                </div>
+              </motion.div>
 
-            {/* Experience badge */}
-            <div className="about-badge absolute bottom-2 sm:bottom-4 left-1 sm:left-4 spartan-glass-card p-3 sm:p-5 flex flex-col items-start border border-white/20 bg-black/70 backdrop-blur-xl">
-              <span className="font-heading text-2xl sm:text-4xl text-primary font-extrabold leading-none">
-                10+
-              </span>
-              <span className="font-body text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-white/70 mt-1 font-medium">
-                Years of Excellence
-              </span>
+              {/* Overlapping Top-Right Card: Coaches & Championship Trophy */}
+              <motion.div
+                initial={{ opacity: 0, x: 25, y: -10 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.65, delay: 0.15 }}
+                className="absolute top-6 right-0 w-[46%] h-[44%] rounded-2xl overflow-hidden border border-white/20 bg-[#151518] shadow-[0_20px_45px_rgba(0,0,0,0.9)] group"
+              >
+                <Image
+                  src="/485309162_1051877876962518_2632745172042704375_n.jpg"
+                  alt="Spartan championship coaches"
+                  fill
+                  sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 20vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
+                <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
+                  <div>
+                    <span className="inline-flex items-center gap-1 text-[9px] font-heading font-extrabold uppercase tracking-wider text-primary-light">
+                      <Award size={11} /> National Champions
+                    </span>
+                    <p className="font-body text-[9px] text-white/70">Certified Coaching Staff</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Overlapping Bottom-Right Card: Heavy Weights & Dumbbell Racks */}
+              <motion.div
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.65, delay: 0.25 }}
+                className="absolute bottom-0 right-[4%] w-[48%] h-[42%] rounded-2xl overflow-hidden border border-white/20 bg-[#151518] shadow-[0_20px_50px_rgba(0,0,0,0.9)] group"
+              >
+                <Image
+                  src="/482207656_1042939214523051_8760506858185054018_n.jpg"
+                  alt="Spartan heavy dumbbell training floor"
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 35vw, 22vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                <div className="absolute bottom-2.5 left-3 right-3">
+                  <p className="font-heading text-[10px] uppercase tracking-wider font-bold text-white">
+                    Free Weights Zone
+                  </p>
+                  <p className="font-body text-[9px] text-white/70">
+                    Full dumbbell racks & powerlifting platforms
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Floating Luxury Achievement Badge */}
+              <motion.div
+                initial={{ scale: 0.85, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.35 }}
+                className="absolute bottom-4 left-2 sm:left-4 z-20 rounded-2xl border border-primary/30 bg-[#0E0E12]/92 backdrop-blur-xl p-3.5 sm:p-4 shadow-[0_15px_35px_rgba(208,59,59,0.2)] flex items-center gap-3.5"
+              >
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-white shrink-0 shadow-md">
+                  <Flame size={22} className="text-white fill-white/20" />
+                </div>
+                <div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="font-heading text-2xl sm:text-3xl font-black text-white tracking-tight leading-none">
+                      10+
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                      Years
+                    </span>
+                  </div>
+                  <p className="font-body text-[10px] uppercase tracking-[0.16em] text-white/60 font-semibold mt-0.5">
+                    Of Fitness Excellence
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </div>
 
-          {/* Right Column: Story & Tabs */}
+          {/* Right Column: Narrative, Features & Structured Tabs */}
           <div className="lg:col-span-6 flex flex-col">
-            <h3 className="font-heading text-xl sm:text-2xl lg:text-3xl uppercase tracking-tight leading-[1.2] text-white font-bold">
+            {/* Section Eyebrow Label */}
+            <div className="inline-flex items-center gap-2 mb-3">
+              <span className="w-2 h-2 rounded-full bg-primary" />
+              <span className="font-body text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+                The Spartan Philosophy
+              </span>
+            </div>
+
+            <h3 className="font-heading text-2xl sm:text-3xl lg:text-4xl uppercase tracking-tight leading-[1.18] text-white font-black">
               Building a community of high performers in Dhaka.
             </h3>
-            <p className="text-white/60 font-body text-xs sm:text-sm md:text-base leading-relaxed mt-4 sm:mt-5">
-              Spartan Fitness is one of the leading premium fitness centers in Dhaka. We provide world-class gym equipment, certified trainers, strength training, bodybuilding, weight loss programs, functional fitness, cardio training, and personalized coaching for beginners and professionals alike.
+
+            <p className="text-white/70 font-body text-sm sm:text-base leading-relaxed mt-4">
+              Spartan Fitness is Dhaka&apos;s premier strength and wellness sanctuary. We combine
+              world-class biomechanical equipment, certified championship trainers, and executive
+              amenities into a results-driven environment designed for beginners and elite athletes alike.
             </p>
 
-            {/* Hairline divider */}
-            <div className="h-px w-full bg-gradient-to-r from-white/15 via-white/5 to-transparent my-6 sm:my-8" />
+            {/* Quick Impact Stats */}
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-4 my-6 py-4 border-y border-white/10">
+              {highlights.map((item, idx) => (
+                <div key={idx} className="flex flex-col">
+                  <span className="font-heading text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">
+                    {item.value}
+                  </span>
+                  <span className="font-body text-[10px] sm:text-xs font-bold uppercase tracking-wider text-primary mt-0.5">
+                    {item.label}
+                  </span>
+                  <span className="font-body text-[10px] text-white/45 hidden sm:block">
+                    {item.sub}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-            {/* Responsive Tabs list */}
-            <div className="flex gap-4 sm:gap-8 border-b border-white/10 pb-1 overflow-x-auto scrollbar-none" role="tablist">
-              {tabs.map((tab, i) => {
-                const TabIcon = tab.icon;
-                const active = activeTab === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    role="tab"
-                    aria-selected={active}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-1.5 sm:gap-2 pb-3 relative font-body text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] whitespace-nowrap transition-colors cursor-pointer flex-shrink-0 ${
-                      active ? "text-primary" : "text-white/50 hover:text-white"
-                    }`}
+            {/* Segmented Interactive Tabs */}
+            <div className="w-full">
+              <div
+                className="flex p-1 rounded-xl bg-white/[0.04] border border-white/10 gap-1"
+                role="tablist"
+              >
+                {tabs.map((tab, i) => {
+                  const TabIcon = tab.icon;
+                  const active = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 rounded-lg font-body text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                        active
+                          ? "bg-primary text-white shadow-[0_4px_16px_rgba(208,59,59,0.35)]"
+                          : "text-white/60 hover:text-white hover:bg-white/[0.04]"
+                      }`}
+                    >
+                      <TabIcon size={14} />
+                      <span>{tab.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Dynamic Tab Body */}
+              <div className="pt-5 min-h-[160px] sm:min-h-[145px]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentTab.id}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.25 }}
+                    className="space-y-3"
                   >
-                    <span className="text-[10px] opacity-40 font-heading">0{i + 1}</span>
-                    <TabIcon size={13} className="sm:w-3.5 sm:h-3.5" />
-                    <span>{tab.label}</span>
-                    {active && (
-                      <motion.div
-                        layoutId="activeAboutTab"
-                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary shadow-[0_0_6px_rgba(208,59,59,0.35)]"
-                      />
-                    )}
-                  </button>
-                );
-              })}
+                    <p className="text-white/75 font-body text-xs sm:text-sm leading-relaxed">
+                      {currentTab.description}
+                    </p>
+
+                    <div className="grid grid-cols-1 gap-2 pt-1">
+                      {currentTab.highlights.map((point, index) => (
+                        <div key={index} className="flex items-start gap-2.5">
+                          <CheckCircle2 size={15} className="text-primary shrink-0 mt-0.5" />
+                          <span className="font-body text-xs text-white/80 font-medium">
+                            {point}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
 
-            {/* Tab content */}
-            <div className="pt-5 sm:pt-6 min-h-[110px] sm:min-h-[120px]">
-              <AnimatePresence mode="wait">
-                {tabs.map(
-                  (tab) =>
-                    activeTab === tab.id && (
-                      <motion.p
-                        key={tab.id}
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.2 }}
-                        className="text-white/70 font-body text-xs sm:text-sm md:text-base leading-relaxed"
-                      >
-                        {tab.content}
-                      </motion.p>
-                    )
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* CTA Link button */}
-            <div className="mt-6 sm:mt-8">
+            {/* Action Row */}
+            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
               <a
                 href="#pricing"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-body text-xs font-bold uppercase tracking-[0.2em] px-6 sm:px-7 py-3 sm:py-3.5 rounded-md bg-white/[0.05] border border-white/15 text-white hover:border-primary hover:text-primary transition-all duration-300 group"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleScroll("#pricing");
+                }}
+                className="inline-flex items-center justify-center gap-2 font-body text-xs font-bold uppercase tracking-[0.18em] px-6 py-3.5 rounded-lg bg-primary text-white hover:bg-primary-dark shadow-[0_6px_20px_rgba(208,59,59,0.3)] transition-all duration-300 group cursor-pointer"
               >
                 <span>View Membership Plans</span>
-                <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
               </a>
+
+              <Link
+                href="/about"
+                className="inline-flex items-center justify-center gap-2 font-body text-xs font-bold uppercase tracking-[0.18em] px-6 py-3.5 rounded-lg bg-white/[0.04] border border-white/15 text-white hover:border-primary hover:text-primary transition-all duration-300 group cursor-pointer"
+              >
+                <span>Our Full Story</span>
+                <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </Link>
             </div>
           </div>
         </div>

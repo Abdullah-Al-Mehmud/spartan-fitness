@@ -92,6 +92,7 @@ export default function Reviews() {
 
   return (
     <section id="reviews" className="relative py-16 sm:py-24 lg:py-36 bg-[#0A0A0A] overflow-hidden">
+      <div id="results" className="absolute -top-20 pointer-events-none" />
       {/* Ambient background glow */}
       <div className="crimson-ambient-glow -bottom-36 left-1/2 -translate-x-1/2 w-[350px] sm:w-[800px] h-[350px] sm:h-[500px] opacity-30 pointer-events-none" />
 

@@ -1,8 +1,8 @@
 "use client";
 
-import { Check, Send } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 // Custom SVG Social Icons
 const Instagram = (props) => (
@@ -53,19 +53,12 @@ const Twitter = (props) => (
 );
 
 const quickLinks = [
-  { label: "Home", href: "#hero" },
-  { label: "About", href: "#about" },
-  { label: "Why Spartan", href: "#why-choose-us" },
-  { label: "Transformations", href: "#transformations" },
-  { label: "Membership Plans", href: "#pricing" },
-  { label: "Get in Touch", href: "#contact" },
-];
-
-const programLinks = [
-  { label: "Personal Training", href: "#why-choose-us" },
-  { label: "Strength & Bodybuilding", href: "#why-choose-us" },
-  { label: "Weight Loss Systems", href: "#transformations" },
-  { label: "Nutrition Guidance", href: "#pricing" },
+  { label: "Home", href: "/", targetId: "hero" },
+  { label: "About", href: "/about", targetId: "about" },
+  { label: "Results", href: "/#results", targetId: "results" },
+  { label: "Pricing", href: "/#pricing", targetId: "pricing" },
+  { label: "Why Us", href: "/#why-choose-us", targetId: "why-choose-us" },
+  { label: "Contact", href: "/contact", targetId: "contact" },
 ];
 
 const branchesList = [
@@ -92,24 +85,41 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubscribed(true);
-    setEmail("");
-    setTimeout(() => setSubscribed(false), 5000);
-  };
+  const handleNav = (link) => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("close-gallery-lightbox"));
+      document.body.style.overflow = "";
+      if (window.__lenis) {
+        window.__lenis.start();
+      }
+    }
 
-  const handleNav = (href) => {
-    const el = document.querySelector(href);
-    if (!el) return;
-    if (typeof window !== "undefined" && window.__lenis) {
-      window.__lenis.scrollTo(el, { offset: -80, duration: 1.0 });
+    if (link.href === "/about" || link.href === "/contact") {
+      router.push(link.href);
+      return;
+    }
+    if (link.href === "/") {
+      if (pathname === "/") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        router.push("/");
+      }
+      return;
+    }
+    if (pathname === "/") {
+      const el = document.getElementById(link.targetId);
+      if (el) {
+        if (typeof window !== "undefined" && window.__lenis) {
+          window.__lenis.scrollTo(el, { offset: -80, duration: 1.0 });
+        } else {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }
     } else {
-      el.scrollIntoView({ behavior: "smooth" });
+      router.push(link.href);
     }
   };
 
@@ -119,15 +129,11 @@ export default function Footer() {
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 py-12 sm:py-16 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12">
           {/* Logo and Tagline Column */}
-          <div className="lg:col-span-4 flex flex-col">
-            <a
-              href="#hero"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNav("#hero");
-              }}
+          <div className="lg:col-span-5 flex flex-col">
+            <Link
+              href="/"
               className="font-heading text-2xl sm:text-3xl tracking-tighter uppercase focus:outline-none flex items-center gap-2.5 group">
               <Image
                 src="/logo.png"
@@ -136,9 +142,9 @@ export default function Footer() {
                 height={40}
                 className="w-auto h-10 sm:h-11 object-contain transition-transform duration-300 group-hover:scale-105"
               />
-            </a>
-            <p className="font-body text-xs text-white/60 mt-3 sm:mt-4 leading-relaxed max-w-sm">
-              Join a community of fitness enthusiasts. Enjoy world-class equipment, free personalized diet plans, and expert trainers in a fully air-conditioned, premium space.
+            </Link>
+            <p className="font-body text-xs sm:text-sm text-white/60 mt-3 sm:mt-4 leading-relaxed max-w-sm">
+              Dhaka&apos;s premier luxury fitness and athletic conditioning sanctuary. World-class biomechanical equipment, certified master trainers, personalized nutrition, and executive steam recovery suites.
             </p>
             <div className="flex items-center gap-3 mt-5 sm:mt-6">
               {socialLinks.map((s, idx) => {
@@ -159,131 +165,68 @@ export default function Footer() {
           </div>
 
           {/* Quick Links Column */}
-          <div className="lg:col-span-2 col-span-1">
+          <div className="lg:col-span-3 col-span-1">
             <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mb-4 sm:mb-6 font-bold">
-              Explore
+              Navigation
             </h4>
             <ul className="space-y-2.5 sm:space-y-3">
               {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNav(link.href);
-                    }}
-                    className="font-body text-xs text-white/50 hover:text-primary transition-colors duration-200">
+                <li key={link.label}>
+                  <button
+                    onClick={() => handleNav(link)}
+                    className="font-body text-xs text-white/50 hover:text-primary transition-colors duration-200 cursor-pointer">
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Programs Column */}
-          <div className="lg:col-span-3 col-span-1">
+          {/* Dhaka Branches Column */}
+          <div className="lg:col-span-4 col-span-1 sm:col-span-2">
             <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mb-4 sm:mb-6 font-bold">
-              Programs
+              Dhaka Arenas
             </h4>
-            <ul className="space-y-2.5 sm:space-y-3">
-              {programLinks.map((link, idx) => (
-                <li key={idx}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNav(link.href);
-                    }}
-                    className="font-body text-xs text-white/50 hover:text-primary transition-colors duration-200">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-
-            <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mt-6 sm:mt-8 mb-3 sm:mb-4 font-bold">
-              Dhaka Branches
-            </h4>
-            <ul className="space-y-2">
+            <div className="space-y-4">
               {branchesList.map((branch, idx) => (
-                <li
+                <div
                   key={idx}
-                  className="font-body text-[11px] text-white/40 leading-relaxed">
-                  <span className="font-semibold text-white/60 block">
+                  className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 space-y-1">
+                  <span className="font-heading text-xs font-bold text-white uppercase tracking-wider block">
                     {branch.name}
                   </span>
-                  Phone: {branch.phone}
-                </li>
+                  <p className="font-body text-[11px] text-white/50 leading-relaxed">
+                    {branch.address}
+                  </p>
+                  <a
+                    href={`tel:${branch.phone}`}
+                    className="font-body text-xs text-primary font-semibold hover:underline block pt-0.5">
+                    Phone: {branch.phone}
+                  </a>
+                </div>
               ))}
-            </ul>
-          </div>
-
-          {/* Newsletter Column */}
-          <div className="lg:col-span-3 sm:col-span-2">
-            <h4 className="font-heading text-xs uppercase tracking-[0.2em] text-white mb-4 sm:mb-6 font-bold">
-              Newsletter
-            </h4>
-            <p className="font-body text-xs text-white/50 mb-4 leading-relaxed">
-              Subscribe to get fitness tips, nutritional guides, and exclusive
-              membership offers in Dhaka.
-            </p>
-
-            {subscribed ? (
-              <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 rounded-xl p-3 text-xs">
-                <Check size={14} className="flex-shrink-0" />
-                <span>Thank you! You are subscribed.</span>
-              </div>
-            ) : (
-              <form
-                onSubmit={handleSubscribe}
-                className="flex flex-col xs:flex-row gap-2">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  required
-                  className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl font-body text-xs text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all duration-300"
-                />
-                <button
-                  type="submit"
-                  className="bg-primary text-white p-3 rounded-xl hover:bg-primary-dark transition-colors duration-300 flex-shrink-0 flex items-center justify-center cursor-pointer"
-                  aria-label="Subscribe">
-                  <Send size={14} />
-                </button>
-              </form>
-            )}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Copyright Bar */}
+      {/* Copyright & Developed By Bar */}
       <div className="border-t border-white/5 py-5 sm:py-6">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-          <p className="font-body text-[10px] text-white/30 uppercase tracking-widest">
-            &copy; {new Date().getFullYear()} Spartan Fitness. All rights
-            reserved.
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <p className="font-body text-[11px] text-white/40 uppercase tracking-widest">
+            &copy; {new Date().getFullYear()} Spartan Fitness. All rights reserved.
           </p>
-          <div className="flex gap-5 sm:gap-6">
-            <a
-              href="#pricing"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNav("#pricing");
-              }}
-              className="font-body text-[10px] text-white/30 hover:text-primary uppercase tracking-widest transition-colors">
-              Privacy Policy
-            </a>
-            <a
-              href="#pricing"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNav("#pricing");
-              }}
-              className="font-body text-[10px] text-white/30 hover:text-primary uppercase tracking-widest transition-colors">
-              Terms of Service
-            </a>
-          </div>
+
+          <a href="https://www.stellarworm.com/" target="_blank" className="flex items-center gap-1 font-body text-xs text-white/60 tracking-wider">
+            <span>Developed By</span>
+            <Image
+              src="/stellarLogo.png"
+              alt="Stellar"
+              width={110}
+              height={22}
+              className="h-[15px] w-auto object-contain "
+            />
+          </a>
         </div>
       </div>
     </footer>

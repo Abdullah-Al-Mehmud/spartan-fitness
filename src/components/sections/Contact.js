@@ -130,9 +130,9 @@ export default function Contact() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-          {/* Left Column: Branch Details & Map */}
-          <div className="lg:col-span-6 flex flex-col gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Left Column: Branch Details */}
+          <div className="lg:col-span-6">
             <div className="spartan-glass-card p-5 sm:p-7 lg:p-8 flex flex-col justify-between">
               <div>
                 <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-3 mb-4">
@@ -205,119 +205,126 @@ export default function Contact() {
                 </a>
               </div>
             </div>
-
-            {/* Embedded Google Map */}
-            <div className="spartan-glass-card overflow-hidden h-[220px] sm:h-[260px] relative border border-white/10">
-              <iframe
-                title={`Map of ${activeBranch.name}`}
-                src={activeBranch.mapIframe}
-                width="100%"
-                height="100%"
-                style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) brightness(85%) contrast(110%)" }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
           </div>
 
-          {/* Right Column: Message Form */}
+          {/* Right Column: Message Form (No awkward empty space) */}
           <div className="lg:col-span-6">
-            <div className="spartan-glass-card p-5 sm:p-7 lg:p-9 h-full flex flex-col justify-between">
-              <div>
-                <h3 className="font-heading text-xl sm:text-2xl uppercase tracking-tight text-white font-bold mb-2">
-                  Send Us a Message
-                </h3>
-                <p className="text-white/60 font-body text-xs sm:text-sm leading-relaxed mb-6 sm:mb-8">
-                  Fill in your details below and a Spartan fitness consultant will get in touch with you within 24 hours.
-                </p>
+            <div className="spartan-glass-card p-5 sm:p-7 lg:p-8">
+              <h3 className="font-heading text-xl sm:text-2xl uppercase tracking-tight text-white font-bold mb-2">
+                Send Us a Message
+              </h3>
+              <p className="text-white/60 font-body text-xs sm:text-sm leading-relaxed mb-6 sm:mb-8">
+                Fill in your details below and a Spartan fitness consultant will get in touch with you within 24 hours.
+              </p>
 
-                {submitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="p-6 sm:p-8 rounded-2xl bg-white/[0.03] border border-primary/40 text-center flex flex-col items-center gap-3 my-6 sm:my-8"
-                  >
-                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-primary/15 border border-primary/40 flex items-center justify-center text-primary">
-                      <CheckCircle size={22} />
-                    </div>
-                    <h4 className="font-heading text-base sm:text-lg uppercase tracking-tight text-white font-bold">
-                      Message Received!
-                    </h4>
-                    <p className="text-white/70 font-body text-xs leading-relaxed max-w-sm">
-                      Thank you for reaching out. A consultant from {activeBranch.name} will call you shortly.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                      <div>
-                        <label className={labelClass}>Full Name *</label>
-                        <input
-                          {...register("fullName", { required: "Name is required" })}
-                          placeholder="Tanvir Rahman"
-                          className={inputClass}
-                        />
-                        {errors.fullName && <p className={errorClass}>{errors.fullName.message}</p>}
-                      </div>
-
-                      <div>
-                        <label className={labelClass}>Phone Number *</label>
-                        <input
-                          {...register("phone", { required: "Phone number is required" })}
-                          placeholder="017XX-XXXXXX"
-                          className={inputClass}
-                        />
-                        {errors.phone && <p className={errorClass}>{errors.phone.message}</p>}
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                      <div>
-                        <label className={labelClass}>Email Address</label>
-                        <input
-                          {...register("email")}
-                          placeholder="tanvir@example.com"
-                          className={inputClass}
-                        />
-                      </div>
-
-                      <div>
-                        <label className={labelClass}>Interested Plan</label>
-                        <select
-                          {...register("plan")}
-                          className={`${inputClass} bg-[#141416] text-white`}
-                        >
-                          <option value="Pro Premium">Pro Premium (Most Popular)</option>
-                          <option value="Basic Access">Basic Access</option>
-                          <option value="Spartan Elite">Spartan Elite</option>
-                          <option value="Personal Coaching">1-on-1 Personal Training</option>
-                        </select>
-                      </div>
+              {submitted ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="p-6 sm:p-8 rounded-2xl bg-white/[0.03] border border-primary/40 text-center flex flex-col items-center gap-3 my-6 sm:my-8"
+                >
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-primary/15 border border-primary/40 flex items-center justify-center text-primary">
+                    <CheckCircle size={22} />
+                  </div>
+                  <h4 className="font-heading text-base sm:text-lg uppercase tracking-tight text-white font-bold">
+                    Message Received!
+                  </h4>
+                  <p className="text-white/70 font-body text-xs leading-relaxed max-w-sm">
+                    Thank you for reaching out. A consultant from {activeBranch.name} will call you shortly.
+                  </p>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                    <div>
+                      <label className={labelClass}>Full Name *</label>
+                      <input
+                        {...register("fullName", { required: "Name is required" })}
+                        placeholder="Tanvir Rahman"
+                        className={inputClass}
+                      />
+                      {errors.fullName && <p className={errorClass}>{errors.fullName.message}</p>}
                     </div>
 
                     <div>
-                      <label className={labelClass}>Message or Questions</label>
-                      <textarea
-                        {...register("message")}
-                        rows={4}
-                        placeholder="Tell us about your fitness goals or questions..."
-                        className={`${inputClass} resize-none`}
+                      <label className={labelClass}>Phone Number *</label>
+                      <input
+                        {...register("phone", { required: "Phone number is required" })}
+                        placeholder="017XX-XXXXXX"
+                        className={inputClass}
+                      />
+                      {errors.phone && <p className={errorClass}>{errors.phone.message}</p>}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                    <div>
+                      <label className={labelClass}>Email Address</label>
+                      <input
+                        {...register("email")}
+                        placeholder="tanvir@example.com"
+                        className={inputClass}
                       />
                     </div>
 
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full py-3.5 sm:py-4 rounded-md font-body text-xs font-bold uppercase tracking-[0.2em] bg-primary text-white hover:bg-primary-dark transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 mt-3 sm:mt-4"
-                    >
-                      <span>{isSubmitting ? "Sending..." : "Submit Inquiry"}</span>
-                      <Send size={14} />
-                    </button>
-                  </form>
-                )}
-              </div>
+                    <div>
+                      <label className={labelClass}>Interested Plan</label>
+                      <select
+                        {...register("plan")}
+                        className={`${inputClass} bg-[#141416] text-white`}
+                      >
+                        <option value="Pro Premium">Pro Premium (Most Popular)</option>
+                        <option value="Basic Access">Basic Access</option>
+                        <option value="Spartan Elite">Spartan Elite</option>
+                        <option value="Personal Coaching">1-on-1 Personal Training</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className={labelClass}>Message or Questions</label>
+                    <textarea
+                      {...register("message")}
+                      rows={4}
+                      placeholder="Tell us about your fitness goals or questions..."
+                      className={`${inputClass} resize-none`}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 sm:py-4 rounded-md font-body text-xs font-bold uppercase tracking-[0.2em] bg-primary text-white hover:bg-primary-dark transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 mt-3 sm:mt-4 shadow-lg shadow-primary/20"
+                  >
+                    <span>{isSubmitting ? "Sending..." : "Submit Inquiry"}</span>
+                    <Send size={14} />
+                  </button>
+
+                  <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-white/40 font-body">
+                    <span>⚡ Quick callback within 24h</span>
+                    <span>🔒 Privacy strictly protected</span>
+                  </div>
+                </form>
+              )}
             </div>
+          </div>
+        </div>
+
+        {/* Full-Width Interactive Google Map */}
+        <div className="mt-8 spartan-glass-card overflow-hidden h-[240px] sm:h-[300px] relative border border-white/10 rounded-2xl">
+          <iframe
+            title={`Map of ${activeBranch.name}`}
+            src={activeBranch.mapIframe}
+            width="100%"
+            height="100%"
+            style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) brightness(85%) contrast(110%)" }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+          <div className="absolute top-3 left-3 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/15 text-[10px] sm:text-[11px] font-heading font-bold uppercase tracking-wider text-white flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span>{activeBranch.name} • Location Map</span>
           </div>
         </div>
       </div>
